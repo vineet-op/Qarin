@@ -4,6 +4,8 @@ import Growth from "./components/Growth";
 import Meet from "./components/Meet";
 import Features from "./components/Features";
 import Works from "./components/Works";
+import HowItWorks from "./components/HowItWorks";
+import Testimonials from "./components/Testimonials";
 
 export default function Home() {
   return (
@@ -14,6 +16,8 @@ export default function Home() {
       <Growth />
       <Features />
       <Works />
+      <HowItWorks />
+      <Testimonials />
     </div>
   );
 }

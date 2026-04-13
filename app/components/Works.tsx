@@ -202,14 +202,14 @@ const Works = () => {
             </div>
 
             {/* Right Side - Image */}
-            <div className="relative flex items-center justify-center rounded-tr-2xl rounded-br-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 p-8">
+            <div className="relative flex items-center justify-center rounded-tr-2xl rounded-br-2xl overflow-hidden  p-8">
               {activeWork && (
                 <Image
                   src={activeWork.image}
                   alt={activeWork.title}
                   width={1494}
                   height={1200}
-                  className="h-full w-full object-contain transition-opacity duration-500"
+                  className="h-full w-full object-contain transition-opacity duration-500 border border-[#E5E5E5] rounded-2xl"
                   priority
                 />
               )}

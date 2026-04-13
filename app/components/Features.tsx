@@ -266,7 +266,7 @@ const Features = () => {
   return (
     <section className="mt-24 w-full">
       <div
-        className="mx-2 lg:mx-6 rounded-[32px] px-8 py-16 sm:py-20 lg:px-8 lg:py-24"
+        className="mx-2 lg:mx-6 rounded-[32px] px-4 py-12 sm:py-20 lg:px-8 lg:py-24"
         style={{
           backgroundImage:
             'url("https://framerusercontent.com/images/0W8QRSemHdaCrSMY0upWHfdsmn0.png?width=300&height=300")',
@@ -294,7 +294,7 @@ const Features = () => {
             </p>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {featuresData.map((feature) => (
               <article
                 key={feature.id}
