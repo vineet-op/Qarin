@@ -39,7 +39,7 @@ const faqs = [
 
 const Questions = () => {
   return (
-    <section className="mx-4 w-auto py-12 md:py-16 lg:mx-6 lg:px-28 lg:py-20">
+    <section className="mx-4 w-auto py-12 md:py-16 lg:mx-6 lg:px-28 lg:py-20 border-b-2 border-[#E4E7EC]">
       <div className="mx-auto w-full">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-16">
           <div className="flex flex-col lg:w-[620px] lg:shrink-0">
@@ -101,7 +101,7 @@ const Questions = () => {
                 <AccordionTrigger className="cursor-pointer font-inter text-[17px] font-semibold text-[#0B0C2B] hover:no-underline">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="pb-4 pt-2 font-inter text-[16px] leading-relaxed text-[#667085]">
+                <AccordionContent className="pb-6 font-inter text-[16px] leading-relaxed text-[#667085]">
                   <p>{faq.answer}</p>
                 </AccordionContent>
               </AccordionItem>

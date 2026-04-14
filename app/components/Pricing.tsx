@@ -50,7 +50,7 @@ const Pricing = () => {
 
   return (
     <section
-      className="mx-4 w-auto rounded-lg px-4 py-12 md:px-8 md:py-16 lg:mx-6 lg:px-16 lg:py-20"
+      className="mx-4 w-auto rounded-lg px-4 py-12 md:px-2 md:py-16 lg:mx-6 lg:px-16 lg:py-20"
       style={{
         background:
           "linear-gradient(180deg, var(--token-feba9233-ee7b-4bb1-94cc-f6d4001e7b9c, #35f) 0%, var(--token-9c0f6d3a-77a4-4864-b64d-ce1ef8294b64, #8599ff) 100%)",
@@ -93,7 +93,7 @@ const Pricing = () => {
           </button>
         </div>
 
-        <div className="flex w-full flex-col gap-4 md:flex-row md:flex-wrap md:justify-center lg:flex-nowrap">
+        <div className="flex w-full flex-col gap-3 md:flex-row md:flex-wrap lg:justify-center  lg:flex-nowrap">
           {plans.map((plan) => {
             const price =
               billingCycle === "yearly"
@@ -105,24 +105,24 @@ const Pricing = () => {
             return (
               <article
                 key={plan.name}
-                className={`relative flex min-h-[485px] flex-1 flex-col rounded-[24px] border p-6 md:max-w-[calc(50%-12px)] lg:max-w-[400px] ${
+                className={`relative flex min-h-[485px] flex-1 flex-col rounded-[24px] border p-6 md:max-w-[calc(50%-12px)] md:flex-auto lg:max-w-[400px] ${
                   isPopular
                     ? "border-white/10 bg-[#17181D] text-white"
                     : "border-[#E4E7EC] bg-white text-[#0B0C2B]"
                 }`}
               >
                 {isPopular && (
-                  <span className="absolute right-4 top-4 rounded-sm bg-[#6D7CFF] px-3 py-1 font-inter text-xs font-medium text-white">
+                  <span className="absolute right-4 top-4 rounded-sm bg-[#6D7CFF] px-3 py-1 font-inter text-xs font-semibold text-white">
                     Most Popular
                   </span>
                 )}
 
-                <div className="mb-4 font-sans text-[18px] font-medium">
+                <div className="mb-4 font-sans text-[18px] font-semibold">
                   {plan.name}
                 </div>
 
                 <div className="mb-4 flex items-end gap-1">
-                  <span className="font-sans text-[32px] font-medium leading-none">
+                  <span className="font-sans text-[32px] font-semibold leading-none">
                     ${price.toFixed(2)}
                   </span>
                   <span
