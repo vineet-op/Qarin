@@ -204,7 +204,7 @@ const Meet = () => {
 
         {/* Right Grid */}
         <div className="w-full max-w-full overflow-hidden">
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:h-[550px]">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:h-full">
             {/* Left Column - Stacked vertically */}
             <div className="flex h-full flex-col gap-2 mt-8 md:mt-12 xl:mt-16">
               {/* Team Image */}

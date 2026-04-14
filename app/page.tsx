@@ -6,6 +6,8 @@ import Features from "./components/Features";
 import Works from "./components/Works";
 import HowItWorks from "./components/HowItWorks";
 import Testimonials from "./components/Testimonials";
+import Pricing from "./components/Pricing";
+import Questions from "./components/Questions";
 
 export default function Home() {
   return (
@@ -18,6 +20,8 @@ export default function Home() {
       <Works />
       <HowItWorks />
       <Testimonials />
+      <Pricing />
+      <Questions />
     </div>
   );
 }

@@ -35,7 +35,7 @@ const Testimonials = () => {
 
   return (
     <section className="w-full bg-[#F9F9FB] py-12 md:py-16 lg:py-24">
-      <div className="w-full max-w-[1440px] mx-auto px-4 md:px-8 lg:px-28">
+      <div className="w-full max-w-full mx-auto px-4 md:px-8 lg:px-8 xl:px-28">
         {/* Trustpilot Rating */}
         <div className="flex flex-col items-center mb-2">
           <div className="flex items-center gap-2 mb-3">
@@ -71,27 +71,26 @@ const Testimonials = () => {
               key={index}
               className="bg-white rounded-3xl p-6 flex flex-col lg:flex-row overflow-hidden"
             >
-              {/* Image Section */}
-              <div className="flex-shrink-0 mb-6 lg:mb-0 lg:mr-[60px]">
-                <div className="relative w-full h-[300px] md:h-[350px] lg:w-[330px] lg:h-[400px] rounded-2xl overflow-hidden">
-                  <Image
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    fill
-                    className="object-cover"
-                  />
+              <div className="flex flex-col md:flex-row lg:flex-1">
+                {/* Image Section */}
+                <div className="flex-shrink-0 mb-6 md:mb-0 md:mr-8 lg:mr-[60px]">
+                  <div className="relative w-full h-[300px] md:w-[280px] md:h-[350px] lg:w-[330px] lg:h-[400px] rounded-2xl overflow-hidden">
+                    <Image
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              {/* Content Section */}
-              <div className="flex-1 flex flex-col lg:flex-row lg:gap-[60px]">
-                {/* Quote and Details */}
-                <div className="flex-1 flex flex-col mb-6 md:mb-8 lg:mb-0 lg:py-9 lg:pr-[60px]">
+                {/* Content Section */}
+                <div className="flex-1 flex flex-col lg:py-9 lg:pr-[60px]">
                   <p className="text-[16px] md:text-[18px] font-inter text-[#0B0C2B] tracking-tight font-medium mb-6 md:mb-8 lg:mb-auto">
                     {testimonial.quote}
                   </p>
 
-                  <div className="flex items-end justify-between lg:mt-8">
+                  <div className="flex items-end justify-between">
                     <div>
                       <h4 className="text-[16px] font-semibold font-inter text-[#0B0C2B]">
                         {testimonial.name}
@@ -111,26 +110,26 @@ const Testimonials = () => {
                     </div>
                   </div>
                 </div>
+              </div>
 
-                {/* Stats Section */}
-                <div className="pt-6 border-t lg:border-t-0 lg:border-l border-[#E8E6FA] flex flex-row lg:flex-col justify-between gap-8 lg:pl-[60px] lg:py-12">
-                  <div>
-                    <div className="text-[28px] lg:text-[48px] lg:font-medium font-normal font-sans text-[#0B0C2B] leading-none mb-2">
-                      {testimonial.revenueBoost}
-                    </div>
-                    <p className="text-[12px] md:text-[14px] font-inter font-medium text-[#66677D] max-w-[140px]">
-                      {testimonial.revenueText}
-                    </p>
+              {/* Stats Section */}
+              <div className="mt-6 pt-6 border-t border-[#E8E6FA] flex flex-row lg:flex-col justify-between gap-8 md:gap-12 lg:mt-0 lg:border-t-0 lg:border-l lg:pl-[60px] lg:py-12 lg:min-w-[220px]">
+                <div>
+                  <div className="text-[28px] md:text-[40px] lg:text-[48px] lg:font-medium font-normal font-sans text-[#0B0C2B] leading-none mb-2">
+                    {testimonial.revenueBoost}
                   </div>
+                  <p className="text-[12px] md:text-[16px] font-inter font-medium text-[#66677d] max-w-[180px]">
+                    {testimonial.revenueText}
+                  </p>
+                </div>
 
-                  <div>
-                    <div className="text-[28px] lg:text-[48px] font-normal font-sans lg:font-medium text-[#0B0C2B] leading-none mb-2">
-                      {testimonial.teamEfficiency}
-                    </div>
-                    <p className="text-[12px] md:text-[14px] font-medium font-inter text-[#66677D]">
-                      {testimonial.teamEfficiencyText}
-                    </p>
+                <div>
+                  <div className="text-[28px] md:text-[40px] lg:text-[48px] font-normal font-sans lg:font-medium text-[#0B0C2B] leading-none mb-2">
+                    {testimonial.teamEfficiency}
                   </div>
+                  <p className="text-[12px] md:text-[16px] font-medium font-inter text-[#66677D] max-w-[180px]">
+                    {testimonial.teamEfficiencyText}
+                  </p>
                 </div>
               </div>
             </div>
