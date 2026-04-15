@@ -109,10 +109,17 @@ const Hero = () => {
               "url(https://framerusercontent.com/images/N5RFLbxO4vAoymPSuRfOaxSZJ5o.png?scale-down-to=2048&width=2752&height=2642)",
             backgroundSize: "cover",
             backgroundPosition:
-              typeof window !== "undefined" && window.innerWidth >= 1440
-                ? "center top -400px"
-                : "center top -50px",
-
+              typeof window !== "undefined"
+                ? window.innerWidth >= 1440
+                  ? // Large screens
+                    "center top -500px"
+                  : window.innerWidth >= 768
+                    ? // Medium screens
+                      "center top -140px"
+                    : // Mobile screens (add more mobile-specific adjustments here)
+                      "center top -50px"
+                : // SSR fallback
+                  "center top -140px",
             backgroundRepeat: "repeat",
           }}
         />
@@ -122,12 +129,12 @@ const Hero = () => {
           <img
             src={DASHBOARD_IMG}
             alt="Qarin Dashboard"
-            className="-mt-6 h-auto w-full max-w-[1000px] rounded-xl object-contain p-3 shadow-2xl md:hidden"
+            className="-mt-6 h-auto w-full max-w-[1150px] rounded-xl object-contain p-3 shadow-2xl md:hidden"
           />
 
           {/* md+: scroll-driven 3D (includes 1024px, 1440px, and up) */}
           <motion.div
-            className="mx-auto hidden w-full max-w-[min(100%,680px)] md:block lg:max-w-[1000px]"
+            className="mx-auto hidden w-full max-w-[min(100%,820px)] md:block lg:max-w-[1150px] min-[1440px]:w-[971px]! min-[1440px]:max-w-[971px]!"
             style={{
               transformPerspective: 1200,
               transformStyle: "preserve-3d",
@@ -141,7 +148,7 @@ const Hero = () => {
             <img
               src={DASHBOARD_IMG}
               alt="Qarin Dashboard"
-              className="-mt-4 h-auto w-full max-h-[min(420px,52vh)] rounded-xl object-contain p-3 shadow-2xl md:rounded-2xl md:p-3 lg:-mt-6 lg:max-h-[min(700px,70vh)] lg:rounded-2xl lg:p-6 lg:shadow-[0_8px_24px_rgba(17,24,39,0.1)]"
+              className="-mt-4 h-auto w-full max-h-[min(500px,58vh)] rounded-xl object-contain p-3 md:rounded-2xl md:p-3 max-lg:shadow-2xl lg:-mt-6 lg:max-h-[min(820px,78vh)] lg:rounded-2xl lg:p-6 lg:shadow-[0_4px_12px_-2px_rgba(15,23,42,0.06),0_12px_28px_-14px_rgba(15,23,42,0.08)] xl:shadow-[0_3px_10px_-2px_rgba(15,23,42,0.05),0_10px_22px_-12px_rgba(15,23,42,0.07)] min-[1440px]:box-border min-[1440px]:h-[658px]! min-[1440px]:w-[971px]! min-[1440px]:max-h-[658px]! min-[1440px]:shrink-0 min-[1440px]:p-4"
             />
           </motion.div>
         </div>
