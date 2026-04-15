@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { AnimatePresence, easeIn, easeInOut, motion } from "motion/react";
 
 const worksData = [
   {
@@ -168,16 +169,28 @@ const Works = () => {
                   <button
                     key={work.id}
                     onClick={() => setActiveTab(work.id)}
-                    className={`group relative flex flex-1 w-full items-start gap-0 text-left transition-all duration-300 ${
+                    className={`group relative flex flex-1 w-full items-start gap-0 text-left transition-all duration-300 overflow-hidden ${
                       isFirst ? "rounded-tl-2xl" : ""
                     } ${isLast ? "rounded-bl-2xl" : ""} ${
-                      isActive
-                        ? "border-b-2 border-b-[#3355FF] bg-[#FAFBFA]"
-                        : `bg-white ${
-                            isLast ? "" : "border-b border-b-[#E5E5E5]"
-                          }`
+                      isActive ? "bg-[#FAFBFA]" : "bg-white"
                     }`}
                   >
+                    {/* Animated Bottom Border */}
+                    <motion.div
+                      className="absolute bottom-0 left-0 z-10 h-[2px] w-full bg-[#3355FF]"
+                      initial={false}
+                      animate={{ scaleX: isActive ? 1 : 0 }}
+                      transition={{
+                        duration: 0.4,
+                        ease: easeInOut,
+                      }}
+                      style={{ transformOrigin: "left" }}
+                    />
+
+                    {!isLast && (
+                      <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full bg-[#E5E5E5]" />
+                    )}
+
                     {/* Icon Column with Right Border */}
                     <div
                       className={`flex shrink-0 items-center justify-center border-r border-r-[#E5E5E5] px-6 py-6 transition-colors duration-300 self-stretch ${
@@ -204,14 +217,30 @@ const Works = () => {
             {/* Right Side - Image */}
             <div className="relative flex items-center justify-center rounded-tr-2xl rounded-br-2xl overflow-hidden  p-8">
               {activeWork && (
-                <Image
-                  src={activeWork.image}
-                  alt={activeWork.title}
-                  width={1494}
-                  height={1200}
-                  className="h-full w-full object-contain transition-opacity duration-500 border border-[#E5E5E5] rounded-2xl"
-                  priority
-                />
+                <div
+                  className="relative w-full overflow-hidden rounded-2xl border border-[#E5E5E5]"
+                  style={{ aspectRatio: "1494 / 1058" }}
+                >
+                  <motion.div
+                    key={activeTab}
+                    className="relative h-full w-full"
+                    initial={{ scale: 1.12, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{
+                      duration: 0.4,
+                      ease: easeInOut,
+                    }}
+                  >
+                    <Image
+                      src={activeWork.image}
+                      alt={activeWork.title}
+                      fill
+                      sizes="(min-width: 1024px) 48vw, 100vw"
+                      className="object-contain"
+                      priority
+                    />
+                  </motion.div>
+                </div>
               )}
             </div>
           </div>
@@ -222,19 +251,28 @@ const Works = () => {
           <div className="flex flex-col">
             {/* Cards Container */}
             <div className="flex flex-col">
-              {worksData.map((work, index) => {
-                const isLast = index === worksData.length - 1;
+              {worksData.map((work) => {
                 const isActive = activeTab === work.id;
                 return (
                   <button
                     key={work.id}
                     onClick={() => setActiveTab(work.id)}
-                    className={`group relative flex w-full items-start gap-0 text-left transition-all duration-300 ${
-                      isActive
-                        ? "border-b-2 border-b-[#3355FF] bg-[#FAFBFA]"
-                        : `bg-white ${isLast ? "" : "border-b border-b-[#E5E5E5]"}`
+                    className={`group relative flex w-full items-start gap-0 overflow-hidden border-b border-b-[#E5E5E5] text-left transition-all duration-300 ${
+                      isActive ? "bg-[#FAFBFA]" : "bg-white"
                     }`}
                   >
+                    {/* Animated Bottom Border */}
+                    <motion.div
+                      className="absolute bottom-0 left-0 h-[2px] w-full bg-[#3355FF]"
+                      initial={false}
+                      animate={{ scaleX: isActive ? 1 : 0 }}
+                      transition={{
+                        duration: 0.35,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      style={{ transformOrigin: "left" }}
+                    />
+
                     {/* Icon Column with Right Border */}
                     <div
                       className={`flex shrink-0 items-center justify-center border-r border-r-[#E5E5E5] px-4 py-5 transition-colors duration-300 self-stretch ${
@@ -261,14 +299,28 @@ const Works = () => {
             {/* Image Container - Inside same border */}
             <div className="relative flex items-center justify-center overflow-hidden p-4 sm:p-8 bg-white">
               {activeWork && (
-                <div className="overflow-hidden rounded-xl border border-[#E5E5E5] w-full">
-                  <Image
-                    src={activeWork.image}
-                    alt={activeWork.title}
-                    width={1494}
-                    height={1058}
-                    className="h-full w-full object-contain transition-opacity duration-500"
-                  />
+                <div
+                  className="relative w-full overflow-hidden rounded-xl border border-[#E5E5E5]"
+                  style={{ aspectRatio: "1494 / 1058" }}
+                >
+                  <motion.div
+                    key={activeTab}
+                    className="relative h-full w-full"
+                    initial={{ scale: 1.12, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{
+                      duration: 0.45,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                  >
+                    <Image
+                      src={activeWork.image}
+                      alt={activeWork.title}
+                      fill
+                      sizes="(max-width: 1023px) 100vw, 48vw"
+                      className="object-contain"
+                    />
+                  </motion.div>
                 </div>
               )}
             </div>

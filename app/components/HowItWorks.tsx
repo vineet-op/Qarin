@@ -26,8 +26,8 @@ const HowItWorks = () => {
   const renderCardContent = (index: number) => {
     if (index === 0) {
       return (
-        <div className="relative overflow-hidden rounded-xl">
-          <div className="flex flex-col gap-2 md:gap-1.5 xl:gap-3">
+        <div className="relative h-full overflow-hidden rounded-xl">
+          <div className="space-y-3 md:space-y-2 xl:space-y-4">
             <div className="flex items-center justify-between rounded-lg bg-white p-3 md:p-2 xl:p-4">
               <div className="flex items-center gap-2 md:gap-1.5 xl:gap-3">
                 <div className="flex h-7 w-7 md:h-6 md:w-6 xl:h-8 xl:w-8 items-center justify-center rounded-full bg-orange-500">
@@ -41,13 +41,13 @@ const HowItWorks = () => {
                   </svg>
                 </div>
                 <span
-                  className="font-sans text-[15px] md:text-[12px] xl:text-[16px] font-medium"
+                  className="font-inter text-[14px] md:text-[12px] xl:text-[14px] font-medium"
                   style={{ color: "var(--heading-color)" }}
                 >
                   Google Analytics
                 </span>
               </div>
-              <button className="rounded-md border border-neutral-200 bg-white px-3 py-1 text-[12px] md:px-2 md:text-[10px] xl:px-4 xl:py-1.5 xl:text-[14px] font-inter font-medium text-neutral-600 transition-colors hover:bg-neutral-50">
+              <button className="min-w-[78px] rounded-md border border-neutral-200 bg-white px-3 py-1 text-center font-inter text-[12px] font-medium text-neutral-600 transition-colors hover:bg-neutral-50 md:min-w-[62px] md:px-2 md:text-[10px] xl:min-w-[92px] xl:px-4 xl:py-1.5 xl:text-[14px]">
                 Connect
               </button>
             </div>
@@ -71,7 +71,7 @@ const HowItWorks = () => {
                   Beta Pixel
                 </span>
               </div>
-              <button className="rounded-md border border-neutral-200 bg-white px-3 py-1 text-[12px] md:px-2 md:text-[10px] xl:px-4 xl:py-1.5 xl:text-[14px] font-inter font-medium text-neutral-600 transition-colors hover:bg-neutral-50">
+              <button className="min-w-[78px] rounded-md border border-neutral-200 bg-white px-3 py-1 text-center font-inter text-[12px] font-medium text-neutral-600 transition-colors hover:bg-neutral-50 md:min-w-[62px] md:px-2 md:text-[10px] xl:min-w-[92px] xl:px-4 xl:py-1.5 xl:text-[14px]">
                 Connect
               </button>
             </div>
@@ -95,7 +95,7 @@ const HowItWorks = () => {
                   InkedIn Conversion
                 </span>
               </div>
-              <button className="rounded-md bg-black px-3 py-1 text-[12px] md:px-2 md:text-[10px] xl:px-4 xl:py-1.5 xl:text-[14px] font-inter font-medium text-white transition-colors hover:bg-neutral-800">
+              <button className="min-w-[78px] rounded-md bg-black px-3 py-1 text-center font-inter text-[12px] font-medium text-white transition-colors hover:bg-neutral-800 md:min-w-[62px] md:px-2 md:text-[10px] xl:min-w-[92px] xl:px-4 xl:py-1.5 xl:text-[14px]">
                 Connect
               </button>
             </div>
@@ -119,7 +119,7 @@ const HowItWorks = () => {
                   Mailchimp campaigns
                 </span>
               </div>
-              <button className="rounded-md border border-neutral-200 bg-white px-3 py-1 text-[12px] md:px-2 md:text-[10px] xl:px-4 xl:py-1.5 xl:text-[14px] font-inter font-medium text-neutral-600">
+              <button className="min-w-[78px] rounded-md border border-neutral-200 bg-white px-3 py-1 text-center font-inter text-[12px] font-medium text-neutral-600 md:min-w-[62px] md:px-2 md:text-[10px] xl:min-w-[92px] xl:px-4 xl:py-1.5 xl:text-[14px]">
                 Connect
               </button>
             </div>
@@ -143,7 +143,7 @@ const HowItWorks = () => {
                   YouDube Analytics
                 </span>
               </div>
-              <button className="rounded-md border border-neutral-200 bg-white px-3 py-1 text-[12px] md:px-2 md:text-[10px] xl:px-4 xl:py-1.5 xl:text-[14px] font-inter font-medium text-neutral-600">
+              <button className="min-w-[78px] rounded-md border border-neutral-200 bg-white px-3 py-1 text-center font-inter text-[12px] font-medium text-neutral-600 md:min-w-[62px] md:px-2 md:text-[10px] xl:min-w-[92px] xl:px-4 xl:py-1.5 xl:text-[14px]">
                 Connect
               </button>
             </div>
@@ -476,14 +476,13 @@ const HowItWorks = () => {
             your team.
           </p>
         </div>
-
         <div className="relative mt-8 md:mt-16 hidden md:flex md:justify-center xl:mt-12">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 884 51"
-            className="w-full md:w-[480px] xl:w-full"
-            style={{ height: "26px" }}
-            preserveAspectRatio="xMidYMid meet"
+            className="xl:w-[900px] md:w-[520px]"
+            style={{ height: "40px" }}
+            preserveAspectRatio="none"
           >
             <path
               d="M.548 50S-2.372 1.454 37.128.94c39.5-.515 326.5-.003 365.5 0S441.048 50 441.048 50s-2.92-48.071 39.08-49.06c42-.99 365.5 0 365.5 0S884.548 8 883.048 50"
@@ -548,17 +547,17 @@ const HowItWorks = () => {
             {cardsData.map((card, index) => (
               <div key={card.id} className="w-full">
                 <article
-                  className="rounded-2xl p-3 md:p-3 xl:p-6 flex flex-col overflow-hidden w-full md:h-[393px] xl:w-[416px] xl:h-auto"
+                  className="rounded-2xl p-3 xl:p-6 overflow-hidden w-full xl:w-[416px]"
                   style={{
                     background:
                       "linear-gradient(180deg, #f2f2ff 0%, rgba(242, 242, 255, 0) 100%)",
                   }}
                 >
-                  <div className="flex-1 overflow-hidden">
+                  <div className="overflow-hidden md:h-[260px] xl:h-[310px]">
                     {renderCardContent(index)}
                   </div>
 
-                  <div className="mt-2 md:mt-1 xl:mt-6 shrink-0">
+                  <div className="mt-[35px]">
                     <h3
                       className="mb-2 font-sans text-[16px] lg:text-[20px] font-medium leading-tight"
                       style={{ color: "var(--heading-color)" }}

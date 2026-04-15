@@ -1,5 +1,6 @@
 "use client";
 
+import RollButton from "@/components/ui/AnimatedButton";
 import React from "react";
 import { motion } from "motion/react";
 
@@ -292,13 +293,17 @@ const Integrations = () => {
           streamline team collaboration, and boost overall productivity.
         </p>
 
-        <button
-          className="mt-7 rounded-xl px-5 py-3 text-[14px] font-medium text-white shadow-[0px_14px_40px_rgba(51,85,255,0.22)] transition-transform duration-200 hover:-translate-y-0.5"
-          style={{ background: "var(--btn-bg)" }}
+        <RollButton
+          label="Explore all integration"
           type="button"
-        >
-          Explore all integration
-        </button>
+          background="var(--btn-bg)"
+          color="#ffffff"
+          padding="12px 20px"
+          borderRadius="12px"
+          border="none"
+          labelClassName="text-[14px] font-medium"
+          className="mt-7 shadow-[0px_14px_40px_rgba(51,85,255,0.22)] transition-transform duration-200 hover:-translate-y-0.5"
+        />
       </div>
 
       <div className="mt-12 md:mt-16 px-6">

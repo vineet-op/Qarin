@@ -2,6 +2,7 @@
 
 import React, { useMemo, useState } from "react";
 import { BarChart3, DollarSign, ListChecks } from "lucide-react";
+import { AnimatePresence, easeOut, motion } from "motion/react";
 
 const growthTabs = [
   {
@@ -138,11 +139,39 @@ const Growth = () => {
             WebkitBackdropFilter: "blur(8px)",
           }}
         >
-          <img
-            src={activeImage}
-            alt="Growth dashboard preview"
-            className="h-auto w-full rounded-[18px] object-cover"
-          />
+          <div className="relative overflow-hidden rounded-[18px]">
+            <AnimatePresence initial={false} mode="popLayout">
+              <motion.div
+                key={activeTab}
+                className="w-full"
+                initial={{
+                  opacity: 0,
+                  y: 28,
+                  filter: "blur(14px)",
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  filter: "blur(0px)",
+                }}
+                exit={{
+                  opacity: 0,
+                  y: -12,
+                  filter: "blur(8px)",
+                }}
+                transition={{
+                  duration: 0.3,
+                  ease: easeOut,
+                }}
+              >
+                <img
+                  src={activeImage}
+                  alt="Growth dashboard preview"
+                  className="h-auto w-full rounded-[18px] object-cover"
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>

@@ -1,4 +1,131 @@
-import React from "react";
+"use client";
+
+import React, { useRef } from "react";
+import {
+  motion,
+  useMotionTemplate,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "motion/react";
+
+type AnimatedPathProps = {
+  d?: string;
+  fill?: string;
+  stroke?: string;
+  strokeDasharray?: string | number;
+  strokeDashoffset?: string | number;
+  strokeLinecap?: "butt" | "round" | "square" | "inherit";
+  strokeLinejoin?: "miter" | "round" | "bevel" | "inherit";
+  strokeMiterlimit?: string | number;
+  strokeWidth?: string | number;
+  transform?: string;
+  height?: string | number;
+  width?: string | number;
+  id?: string;
+  baseOffset?: number;
+  duration?: number;
+  delay?: number;
+  reverse?: boolean;
+};
+
+const getDashTravel = (
+  strokeDasharray: AnimatedPathProps["strokeDasharray"],
+) => {
+  if (typeof strokeDasharray === "number") {
+    return strokeDasharray || 24;
+  }
+
+  if (typeof strokeDasharray === "string") {
+    const values = strokeDasharray
+      .split(/[ ,]+/)
+      .map((value) => Number(value))
+      .filter((value) => Number.isFinite(value));
+
+    return values.reduce((sum, value) => sum + value, 0) || 24;
+  }
+
+  return 24;
+};
+
+const AnimatedPath = ({
+  baseOffset = 0,
+  duration = 2,
+  delay = 0,
+  reverse = false,
+  strokeDasharray,
+  ...rest
+}: AnimatedPathProps) => {
+  const dashTravel = getDashTravel(strokeDasharray);
+
+  return (
+    <motion.path
+      {...rest}
+      strokeDasharray={strokeDasharray}
+      strokeDashoffset={baseOffset}
+      animate={{
+        strokeDashoffset: reverse
+          ? [baseOffset, baseOffset + dashTravel]
+          : [baseOffset, baseOffset - dashTravel],
+      }}
+      transition={{
+        duration,
+        delay,
+        ease: "easeOut",
+        repeat: Number.POSITIVE_INFINITY,
+        repeatType: "loop",
+      }}
+    />
+  );
+};
+
+const renderAnimatedSvg = (svg: React.ReactElement, featureIndex: number) => {
+  let pathIndex = 0;
+
+  const enhanceNode = (node: React.ReactNode): React.ReactNode => {
+    if (!React.isValidElement(node)) {
+      return node;
+    }
+
+    if (typeof node.type === "string" && node.type === "path") {
+      const props = node.props as AnimatedPathProps;
+      const currentPathIndex = pathIndex++;
+      const parsedOffset =
+        typeof props.strokeDashoffset === "string"
+          ? Number(props.strokeDashoffset)
+          : props.strokeDashoffset;
+      const baseOffset =
+        typeof parsedOffset === "number" && Number.isFinite(parsedOffset)
+          ? parsedOffset
+          : 0;
+
+      return (
+        <AnimatedPath
+          key={node.key ?? `feature-path-${featureIndex}-${currentPathIndex}`}
+          {...props}
+          baseOffset={baseOffset}
+          duration={3.1 + featureIndex * 0.22 + currentPathIndex * 0.18}
+          // delay={currentPathIndex * 0.12}
+          reverse={(featureIndex + currentPathIndex) % 2 === 1}
+        />
+      );
+    }
+
+    const element = node as React.ReactElement<{ children?: React.ReactNode }>;
+
+    if (!element.props.children) {
+      return element;
+    }
+
+    return React.cloneElement(
+      element,
+      element.props,
+      React.Children.map(element.props.children, enhanceNode),
+    );
+  };
+
+  return enhanceNode(svg);
+};
 
 const featuresData = [
   {
@@ -263,11 +390,35 @@ const featuresData = [
 ];
 
 const Features = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start 85%", "start 25%"],
+  });
+
+  const rawInset = useTransform(scrollYProgress, [0, 1], [28, 0]);
+  const inset = useSpring(rawInset, {
+    stiffness: 85,
+    damping: 24,
+    mass: 0.9,
+  });
+  const rawScale = useTransform(scrollYProgress, [0, 1], [0.94, 1]);
+  const scale = useSpring(rawScale, {
+    stiffness: 85,
+    damping: 24,
+    mass: 0.9,
+  });
+  const containerClipPath = useMotionTemplate`inset(0 ${inset}px round 32px)`;
+
   return (
     <section className="mt-24 w-full md:px-2 lg:px-2">
-      <div
+      <motion.div
+        ref={sectionRef}
         className="mx-2 lg:mx-6 rounded-[32px] px-4 py-12 sm:py-20 lg:px-8 lg:py-24"
         style={{
+          clipPath: containerClipPath,
+          scale,
+          transformOrigin: "center center",
           backgroundImage:
             'url("https://framerusercontent.com/images/0W8QRSemHdaCrSMY0upWHfdsmn0.png?width=300&height=300")',
           backgroundRepeat: "repeat",
@@ -295,12 +446,14 @@ const Features = () => {
           </div>
 
           <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {featuresData.map((feature) => (
+            {featuresData.map((feature, index) => (
               <article
                 key={feature.id}
                 className="rounded-2xl border border-white/10 p-[36px] backdrop-blur-lg"
               >
-                <div className="mb-[46px]">{feature.svg}</div>
+                <div className="mb-[46px]">
+                  {renderAnimatedSvg(feature.svg, index)}
+                </div>
                 <h3 className="mb-[15px] font-sans text-[20px] font-medium leading-tight text-white">
                   {feature.title}
                 </h3>
@@ -311,7 +464,7 @@ const Features = () => {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import RollButton from "@/components/ui/AnimatedButton";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -65,12 +65,17 @@ const Navbar = () => {
 
         {/* Desktop Button - Right Side */}
         <div className="hidden lg:block">
-          <Button
-            className="rounded-sm border-0 px-4 py-6 text-[15px] font-medium text-white"
-            style={{ background: "var(--btn-bg)" }}
-          >
-            Get Started Now
-          </Button>
+          <RollButton
+            label="Get Started Now"
+            background="var(--btn-bg)"
+            color="#ffffff"
+            fontSize="15px"
+            fontWeight={500}
+            padding="16px 16px"
+            borderRadius="8px"
+            border="none"
+            className="rounded-sm border-0 text-[15px] font-medium text-white"
+          />
         </div>
 
         {/* Mobile Hamburger Menu */}
@@ -118,12 +123,17 @@ const Navbar = () => {
               {option}
             </Link>
           ))}
-          <Button
-            className="mt-2 w-full rounded-sm border-0 px-4 py-6 text-[15px] font-medium text-white"
-            style={{ background: "var(--btn-bg)" }}
-          >
-            Get Started Now
-          </Button>
+          <RollButton
+            label="Get Started Now"
+            background="var(--btn-bg)"
+            color="#ffffff"
+            fontSize="15px"
+            fontWeight={500}
+            padding="24px 16px"
+            borderRadius="2px"
+            border="none"
+            className="mt-2 w-full rounded-sm border-0 text-[15px] font-medium text-white"
+          />
         </div>
       </div>
     </nav>

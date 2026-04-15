@@ -14,7 +14,7 @@ import Integrations from "./components/Integrations";
 
 export default function Home() {
   return (
-    <div className="w-full bg-white">
+    <div className="w-full min-w-0">
       <Navbar />
       <Hero />
       <Meet />

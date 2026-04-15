@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import RollButton from "@/components/ui/AnimatedButton";
 import React from "react";
 
 const Footer = () => {
@@ -31,16 +31,21 @@ const Footer = () => {
               startups and fast-growing teams.
             </p>
 
-            <Button
-              className="rounded-2xl bg-white px-6 py-6 font-inter text-[16px] font-semibold text-[#4F46E5] transition-all hover:bg-white/95 hover:shadow-lg"
-              size="lg"
-            >
-              Start 14 Days Free Trial
-            </Button>
+            <RollButton
+              type="button"
+              label="Start 14 Days Free Trial"
+              background="#ffffff"
+              color="#4F46E5"
+              padding="24px 24px"
+              borderRadius="16px"
+              border="none"
+              labelClassName="font-inter text-[16px] font-semibold"
+              className="rounded-2xl bg-white transition-all hover:bg-white/95! hover:shadow-lg"
+            />
           </div>
         </div>
 
-        <footer className="bg-[#FAFBFA] h-auto px-6 py-12 text-[#66677D] lg:px-6 lg:py-16 lg:pt-0 xl:pt-32">
+        <footer className="bg-[#FAFBFA]/85 h-auto px-6 py-12 text-[#66677D] lg:px-6 lg:py-16 lg:pt-0 xl:pt-32">
           <div className="mx-auto flex max-w-7xl flex-col">
             {/* Copyright Section - Top */}
             <div className="order-2 mt-12 flex flex-col items-center justify-between gap-4 border-t border-[#E8EAF0] pt-8 md:order-0 md:mt-0 md:flex-row md:border-t-0 md:border-b md:border-white/10 md:pb-12 lg:flex-row lg:items-center lg:pt-18">
@@ -48,7 +53,7 @@ const Footer = () => {
                 <img
                   src="https://framerusercontent.com/images/OZ1NO0sjJhpkaaZFpnJzs7B2nM.svg?width=587&height=207"
                   alt="Qarin Logo"
-                  className="w-[180px] lg:w-[280px] lg:[81px] h-auto md:w-[230px]"
+                  className="w-[180px] lg:w-[280px] lg:[81px] h-auto md:w-[230px] xl:w-[565px] xl:h-[200px]"
                 />
               </div>
               <div className="text-left lg:text-right md:text-right text-sm">
