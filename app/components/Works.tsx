@@ -180,7 +180,7 @@ const Works = () => {
                   >
                     {/* Icon Column with Right Border */}
                     <div
-                      className={`flex flex-shrink-0 items-start justify-center border-r border-r-[#E5E5E5] px-6 py-6 transition-colors duration-300 h-full ${
+                      className={`flex shrink-0 items-center justify-center border-r border-r-[#E5E5E5] px-6 py-6 transition-colors duration-300 self-stretch ${
                         isActive ? "text-[#3355FF]" : "text-black"
                       }`}
                     >
@@ -217,52 +217,61 @@ const Works = () => {
           </div>
         </div>
 
-        {/* Mobile Layout */}
-        <div className="flex flex-col gap-6 lg:hidden">
-          {/* Cards Container */}
-          <div className="overflow-hidden rounded-2xl border border-[#E5E5E5]">
-            {worksData.map((work, index) => {
-              const isLast = index === worksData.length - 1;
-              const isActive = activeTab === work.id;
-              return (
-                <button
-                  key={work.id}
-                  onClick={() => setActiveTab(work.id)}
-                  className={`group relative flex w-full flex-col items-start p-6 text-left transition-all duration-300 ${
-                    isActive
-                      ? "border-b-2 border-b-[#3355FF] bg-white"
-                      : `bg-white ${isLast ? "" : "border-b border-b-[#E5E5E5]"}`
-                  }`}
-                >
-                  <div
-                    className={`mb-4 transition-colors duration-300 ${
-                      isActive ? "text-[#3355FF]" : "text-black"
+        {/* Mobile & Tablet Layout */}
+        <div className="lg:hidden overflow-hidden border border-[#E5E5E5] rounded-2xl">
+          <div className="flex flex-col">
+            {/* Cards Container */}
+            <div className="flex flex-col">
+              {worksData.map((work, index) => {
+                const isLast = index === worksData.length - 1;
+                const isActive = activeTab === work.id;
+                return (
+                  <button
+                    key={work.id}
+                    onClick={() => setActiveTab(work.id)}
+                    className={`group relative flex w-full items-start gap-0 text-left transition-all duration-300 ${
+                      isActive
+                        ? "border-b-2 border-b-[#3355FF] bg-[#FAFBFA]"
+                        : `bg-white ${isLast ? "" : "border-b border-b-[#E5E5E5]"}`
                     }`}
                   >
-                    {work.icon}
-                  </div>
-                  <h3 className="mb-3 font-sans text-[18px] font-medium leading-tight text-[#0A0A0A]">
-                    {work.title}
-                  </h3>
-                  <p className="font-inter text-[16px] leading-relaxed text-[#6B6B6B]">
-                    {work.description}
-                  </p>
-                </button>
-              );
-            })}
-          </div>
+                    {/* Icon Column with Right Border */}
+                    <div
+                      className={`flex shrink-0 items-center justify-center border-r border-r-[#E5E5E5] px-4 py-5 transition-colors duration-300 self-stretch ${
+                        isActive ? "text-[#3355FF]" : "text-black"
+                      }`}
+                    >
+                      {work.icon}
+                    </div>
 
-          {/* Image Container */}
-          <div className="relative  w-full overflow-hidden rounded-2xl border border-[#E5E5E5] bg-gradient-to-br from-gray-50 to-gray-100">
-            {activeWork && (
-              <Image
-                src={activeWork.image}
-                alt={activeWork.title}
-                width={1494}
-                height={1058}
-                className="h-full w-full object-contain transition-opacity duration-500"
-              />
-            )}
+                    {/* Text Content Column */}
+                    <div className="flex flex-1 flex-col px-4 py-5">
+                      <h3 className="mb-2 font-sans text-[16px] font-medium leading-tight text-[#0A0A0A]">
+                        {work.title}
+                      </h3>
+                      <p className="font-inter text-[14px] leading-relaxed text-[#6B6B6B]">
+                        {work.description}
+                      </p>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Image Container - Inside same border */}
+            <div className="relative flex items-center justify-center overflow-hidden p-4 sm:p-8 bg-white">
+              {activeWork && (
+                <div className="overflow-hidden rounded-xl border border-[#E5E5E5] w-full">
+                  <Image
+                    src={activeWork.image}
+                    alt={activeWork.title}
+                    width={1494}
+                    height={1058}
+                    className="h-full w-full object-contain transition-opacity duration-500"
+                  />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

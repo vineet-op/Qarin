@@ -15,7 +15,7 @@ const Hero = () => {
   const marqueeLogos = [...brandLogos, ...brandLogos];
 
   return (
-    <section className="font-inter flex flex-col items-center justify-center mx-auto mt-[60px] md:mt-[70px] lg:mt-[76px] w-full max-w-[1296px] px-4 md:px-6 lg:px-4">
+    <section className="font-inter flex flex-col items-center justify-center mx-auto mt-[60px] md:mt-[70px] lg:mt-[76px] w-full px-4 md:px-6 lg:px-20">
       {/* Version Badge */}
       <div className="flex items-center gap-1.5 mb-4 md:mb-6 lg:mb-[27px] px-3 py-1.5 rounded-sm bg-white border border-neutral-200">
         <span
@@ -32,7 +32,7 @@ const Hero = () => {
 
       {/* Main Heading */}
       <h1
-        className="text-[32px] md:text-[48px] lg:text-[64px] font-sans font-medium text-center leading-[1.1] tracking-tighter max-w-[900px] mb-4 md:mb-5 lg:mb-6 px-2"
+        className="text-[40px] md:text-[48px] lg:text-[64px] font-sans font-medium text-center leading-[1.1] tracking-tighter max-w-[900px] mb-4 md:mb-5 lg:mb-6 px-2"
         style={{ color: "var(--heading-color)" }}
       >
         Manage Your Sales Process <br className="hidden md:block" /> with
@@ -49,21 +49,20 @@ const Hero = () => {
       </p>
 
       {/* CTA Buttons */}
-      <div className="flex flex-col md:flex-row gap-3 md:gap-4 items-center mb-8 md:mb-12 lg:mb-16 w-full md:w-auto px-4 md:px-0">
-        <Button
-          className="text-white font-medium text-[14px] md:text-[15px] px-6 py-5 md:py-6 rounded-xl border-0 w-full md:w-auto"
-          style={{ background: "var(--brand-color)" }}
+      <div className="flex flex-row gap-3 md:gap-4 items-center mb-8 md:mb-12 lg:mb-16 w-full px-4 md:px-0 justify-center">
+        <button
+          className="text-white font-medium text-[14px] md:text-[15px] px-[22px] py-[12px] rounded-xl border-0 w-auto"
+          style={{ background: "var(--card-linear-bg)" }}
         >
           Book a Demo
-        </Button>
-        <Button
-          variant="outline"
-          className="font-medium text-[14px] md:text-[15px] px-6 py-5 md:py-6 rounded-xl bg-white border border-neutral-200 flex items-center justify-center gap-2 w-full md:w-auto"
+        </button>
+        <button
+          className="group font-medium text-[14px] md:text-[15px] px-[22px] py-[12px] rounded-xl bg-white border border-neutral-200 flex items-center justify-center gap-2 w-auto transition-all"
           style={{ color: "var(--heading-color)" }}
         >
           Contact Sales
-          <ArrowRight className="w-4 h-4" />
-        </Button>
+          <ArrowRight className="w-4 h-4 rotate-[-45deg] group-hover:rotate-0 transition-transform duration-100" />
+        </button>
       </div>
 
       {/* Hero Image Section */}
@@ -76,16 +75,16 @@ const Hero = () => {
               "url(https://framerusercontent.com/images/N5RFLbxO4vAoymPSuRfOaxSZJ5o.png?scale-down-to=2048&width=2752&height=2642)",
             backgroundSize: "cover",
             backgroundPosition: "center top -100px",
-            backgroundRepeat: "no-repeat",
+            backgroundRepeat: "repeat",
           }}
         />
 
         {/* Dashboard Image */}
-        <div className="relative w-full h-full flex items-start justify-center px-4 py-6 md:px-6 md:py-8 lg:px-8 lg:py-16">
+        <div className="relative w-full h-full flex items-start justify-center px-4 py-6 md:px-4 md:py-6 lg:px-6 lg:py-6 rounded-2xl">
           <img
             src="https://framerusercontent.com/images/rxbjs0K0wdBGS4vAounN8YZpJuM.png?scale-down-to=2048&width=2160&height=1536"
             alt="Qarin Dashboard"
-            className="w-full max-w-[950px] p-3 md:p-4 lg:p-5 h-auto -mt-6 md:h-[400px] lg:h-[650px] object-contain rounded-xl md:rounded-2xl shadow-2xl"
+            className="w-full max-w-[1000px] p-3 md:p-4 lg:p-4 h-auto -mt-6 md:h-[450px] lg:h-[700px] object-contain rounded-xl md:rounded-2xl shadow-2xl"
           />
         </div>
       </div>

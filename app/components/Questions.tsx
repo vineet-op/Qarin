@@ -39,10 +39,10 @@ const faqs = [
 
 const Questions = () => {
   return (
-    <section className="mx-4 w-auto py-12 md:py-16 lg:mx-6 lg:px-28 lg:py-20 border-b-2 border-[#E4E7EC]">
+    <section className="mx-4 w-auto py-12 md:py-16 lg:px-4 xl:px-24 lg:py-20 border-b-2 border-[#E4E7EC]">
       <div className="mx-auto w-full">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-16">
-          <div className="flex flex-col lg:w-[620px] lg:shrink-0">
+        <div className="flex flex-col gap-6 xl:flex-row xl:items-start xl:gap-16">
+          <div className="flex flex-col xl:w-[620px] xl:shrink-0">
             <div className="flex w-fit items-center gap-2 rounded-full border border-[#E4E7EC] bg-white px-3 py-1.5">
               <HelpCircle className="h-3.5 w-3.5 text-[#0B0C2B]" />
               <span className="font-sans text-[13px] font-medium text-[#0B0C2B]">
@@ -90,7 +90,7 @@ const Questions = () => {
             type="single"
             collapsible
             defaultValue="faq-0"
-            className="flex flex-1 flex-col gap-2 lg:mt-16"
+            className="flex flex-1 flex-col gap-2 xl:mt-16"
           >
             {faqs.map((faq, index) => (
               <AccordionItem
@@ -98,7 +98,7 @@ const Questions = () => {
                 value={`faq-${index}`}
                 className="rounded-lg border border-[#E4E7EC] bg-white px-4 xl:px-6 lg:py-4"
               >
-                <AccordionTrigger className="cursor-pointer font-inter text-[17px] font-semibold text-[#0B0C2B] hover:no-underline">
+                <AccordionTrigger className="cursor-pointer font-inter text-[17px] font-medium text-[#0B0C2B] hover:no-underline">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="pb-6 font-inter text-[16px] leading-relaxed text-[#667085]">

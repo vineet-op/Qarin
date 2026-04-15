@@ -38,9 +38,9 @@ const News = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section className="mx-4 w-auto py-12 md:py-16 lg:mx-6 lg:px-28 lg:py-20">
+    <section className="mx-4 w-auto py-12 md:py-16 lg:mx-1 lg:px-6 xl:px-36 lg:py-20">
       <div className="mx-auto w-full">
-        <div className="mb-8 flex flex-col items-center text-center md:mb-12 lg:mb-16">
+        <div className="pb-4 flex flex-col items-center text-center md:mb-12 lg:mb-16">
           <div className="mb-4 flex w-fit items-center gap-2 rounded-full border border-[#E4E7EC] bg-white px-3 py-1.5">
             <Newspaper className="h-3.5 w-3.5 text-[#0B0C2B]" />
             <span className="font-sans text-[13px] font-medium text-[#0B0C2B]">
@@ -53,14 +53,14 @@ const News = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {blogPosts.map((post, index) => (
             <div
               key={index}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               className={`group relative overflow-hidden rounded-sm border border-[#E4E7EC] bg-white p-4 transition-all ${
-                index === 3 ? "md:block lg:hidden" : ""
+                index === 3 ? "md:block xl:hidden" : ""
               }`}
             >
               <div className="relative mb-3 overflow-hidden rounded-sm">

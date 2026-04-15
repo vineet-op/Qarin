@@ -50,7 +50,7 @@ const Pricing = () => {
 
   return (
     <section
-      className="mx-4 w-auto rounded-lg px-4 py-12 md:px-2 md:py-16 lg:mx-6 lg:px-16 lg:py-20"
+      className="mx-4 w-auto rounded-lg px-4 py-12 md:px-2 md:py-16 lg:mx-6 lg:px-10 lg:py-20"
       style={{
         background:
           "linear-gradient(180deg, var(--token-feba9233-ee7b-4bb1-94cc-f6d4001e7b9c, #35f) 0%, var(--token-9c0f6d3a-77a4-4864-b64d-ce1ef8294b64, #8599ff) 100%)",
@@ -64,11 +64,11 @@ const Pricing = () => {
           </span>
         </div>
 
-        <h2 className="mb-8 text-center font-sans text-[32px] font-medium tracking-tighter text-white md:mb-10 md:text-[48px]">
+        <h2 className="mb-8 text-center font-sans text-[32px] font-medium tracking-tighter md:text-[34px] text-white md:mb-10">
           Simple plans. Smarter growth.
         </h2>
 
-        <div className="mb-10 inline-flex rounded-2xl border border-white/30 bg-white p-1.5 shadow-sm md:mb-12">
+        <div className="lg:mb-10 mb-4 inline-flex rounded-2xl border border-white/30 bg-white p-1.5 shadow-sm md:mb-12">
           <button
             type="button"
             onClick={() => setBillingCycle("monthly")}
@@ -93,7 +93,7 @@ const Pricing = () => {
           </button>
         </div>
 
-        <div className="flex w-full flex-col gap-3 md:flex-row md:flex-wrap lg:justify-center  lg:flex-nowrap">
+        <div className="flex w-full flex-col gap-3 md:flex-row md:flex-wrap lg:justify-center lg:flex-wrap xl:flex-nowrap">
           {plans.map((plan) => {
             const price =
               billingCycle === "yearly"

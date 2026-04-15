@@ -3,7 +3,7 @@ import { Check } from "lucide-react";
 
 const Meet = () => {
   return (
-    <section className="font-inter mx-auto mt-16 md:mt-20 lg:mt-24 w-full px-4 md:px-8 lg:px-6 xl:px-24 bg-neutral-50 py-16 md:py-24 lg:py-32">
+    <section className="font-inter mx-auto mt-16 md:mt-20 lg:mt-24 w-full px-4 md:px-6 lg:px-6 xl:px-24 bg-neutral-50 py-16 md:py-24 lg:py-32">
       <div className="mx-auto max-w-[640px] text-center">
         <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-1.5">
           <div
@@ -112,7 +112,7 @@ const Meet = () => {
       </div>
       {/* Stats Section */}
       <div className="mt-4 w-full rounded-2xl md:rounded-3xl px-6 py-8 sm:px-8 sm:py-12 md:px-12 md:py-16 bg-gradient-brand-soft">
-        <div className="flex flex-col gap-8 md:gap-[33px] lg:grid lg:grid-cols-4 lg:gap-8 xl:gap-12">
+        <div className="flex flex-col md:flex-row  md:justify-center gap-8 md:gap-[33px] lg:grid lg:grid-cols-4 lg:gap-8 xl:gap-12">
           {[
             {
               stat: "#1",
@@ -133,9 +133,9 @@ const Meet = () => {
           ].map((item, index) => (
             <div
               key={index}
-              className={`relative ${
+              className={`relative  ${
                 index > 0
-                  ? "border-t border-dashed pt-8 md:pt-[33px] lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8 xl:pl-12"
+                  ? "border-t border-dashed pt-8 md:border-t-0 md:pt-0 lg:border-l lg:pl-8 xl:pl-12"
                   : ""
               }`}
               style={
@@ -165,7 +165,7 @@ const Meet = () => {
         {/* Left Content */}
         <div className="xl:pr-4">
           <h2
-            className="text-[32px] md:text-[40px] lg:text-[44px] xl:text-[48px] font-sans font-medium leading-[1.1] tracking-tighter max-w-sm"
+            className="text-[32px] md:text-[34px] md:w-full lg:text-[44px] xl:text-[48px] font-sans font-medium leading-[1.1] tracking-tighter lg:max-w-sm"
             style={{ color: "var(--heading-color)" }}
           >
             Visibility into every sales action
@@ -180,7 +180,7 @@ const Meet = () => {
             consistent results.
           </p>
 
-          <div className="mt-6 md:mt-8 lg:mt-10 xl:mt-[48px] flex flex-col gap-4 md:gap-5 lg:gap-6 xl:gap-[48px]">
+          <div className="mt-6 md:mt-8 lg:mt-10 xl:mt-[48px] flex flex-col gap-4 md:gap-12 lg:gap-6 xl:gap-[48px]">
             {[
               "Track activity patterns across your entire sales workflow",
               "Connect effort, timing, and outcomes in one view",

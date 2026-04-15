@@ -264,7 +264,7 @@ const featuresData = [
 
 const Features = () => {
   return (
-    <section className="mt-24 w-full">
+    <section className="mt-24 w-full md:px-2 lg:px-2">
       <div
         className="mx-2 lg:mx-6 rounded-[32px] px-4 py-12 sm:py-20 lg:px-8 lg:py-24"
         style={{

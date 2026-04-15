@@ -174,6 +174,19 @@
   animation: dash-flow 4s linear infinite;
 }
 
+@keyframes slide-right-to-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-slide-rtl {
+  animation: slide-right-to-left 30s linear infinite;
+}
+
 @layer utilities {
   .bg-gradient-brand-soft {
     background: var(--gradient-brand-soft);

@@ -58,7 +58,7 @@ const Growth = () => {
         </div>
 
         <h2
-          className="font-sans text-[36px] font-medium leading-[1.1] tracking-tighter sm:text-[48px]"
+          className="font-sans text-[34px] md:text-[34px] lg:text-[48px] font-medium leading-[1.1] tracking-tighter sm:text-[48px]"
           style={{ color: "var(--heading-color)" }}
         >
           AI-Powered growth stack
@@ -130,7 +130,7 @@ const Growth = () => {
         </div>
 
         <div
-          className="relative z-10 mx-auto mt-8 w-full max-w-[880px] rounded-[24px] p-[10px] shadow-[0px_24px_60px_rgba(51,85,255,0.12)]"
+          className="relative z-10 mx-auto mt-8 w-full max-w-[880px] lg:max-w-[700px] xl:max-w-[900px] rounded-[24px] p-[10px] shadow-[0px_24px_60px_rgba(51,85,255,0.12)]"
           style={{
             background:
               "linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, var(--token-2dec387a-3ef3-4470-89cb-9d86ed53611b, rgb(216, 216, 223)) 100%)",
