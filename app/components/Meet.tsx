@@ -7,10 +7,11 @@ import {
   MeetWidgetFrame,
 } from "@/app/components/MeetDashboardWidgets";
 
-const meetPreviewCol = "w-full min-w-0 shrink-0 sm:w-[260px] lg:w-[280px]";
+const meetPreviewCol =
+  "w-full min-w-0 shrink-0 xl:w-[280px] xl:shrink-0 min-[1440px]:w-[260px]";
 
-/** Same outer size for Activity chart & deal stack white frames */
-const meetPreviewShell = `${meetPreviewCol} ${MEET_PREVIEW_FRAME_HEIGHT_CLASS} flex flex-col`;
+/** Same outer size for Activity chart & deal stack white frames (260×208 at 1440px+) */
+const meetPreviewShell = `${meetPreviewCol} ${MEET_PREVIEW_FRAME_HEIGHT_CLASS} min-[1440px]:h-[208px] flex flex-col`;
 
 const Meet = () => {
   return (
@@ -30,7 +31,7 @@ const Meet = () => {
         </div>
 
         <h2
-          className="text-[28px] md:text-[32px] lg:text-[34px] font-sans max-w-[500px] mx-auto font-medium leading-[1.1] tracking-tighter"
+          className="text-[28px] md:text-[32px] lg:text-[34px] xl:text-[48px] font-sans max-w-[500px] mx-auto font-medium leading-[1.1] tracking-tighter"
           style={{ color: "var(--heading-color)" }}
         >
           Everything you need to manage and grow sales
@@ -45,15 +46,16 @@ const Meet = () => {
           opportunities, and move faster with confidence.
         </p>
       </div>
-      <div className="mt-8 grid grid-cols-1 gap-2 md:mt-10 lg:mt-12 lg:grid-cols-2 lg:grid-rows-2 lg:items-stretch lg:gap-2">
+      <div className="mt-8 grid grid-cols-1 gap-4 md:mt-10 md:grid-cols-2 md:items-stretch lg:mt-12 xl:grid-rows-2 lg:gap-2">
+        {/* md–lg: Time + Activity row 1, Real-time full row 2. xl+ (incl. 1440px): Time + Activity stacked left, Real-time tall right */}
         <article
-          className="flex flex-col items-start gap-4 rounded-2xl border p-4 sm:flex-row sm:items-start sm:justify-between lg:col-start-1 lg:row-start-1"
+          className="order-1 flex flex-col items-start gap-4 rounded-2xl border p-4 xl:flex-row xl:items-stretch xl:justify-between xl:col-start-1 xl:row-start-1"
           style={{
             background: "var(--card-state-bg)",
             boxShadow: "0px 0px 0px 1px var(--card-state-border)",
           }}
         >
-          <div className="max-w-full sm:max-w-[52%] lg:max-w-[48%]">
+          <div className="max-w-full min-w-0 xl:max-w-[48%]">
             <h3
               className="text-[20px] md:text-[22px] lg:text-[24px] font-sans font-medium leading-[1.1] tracking-tighter"
               style={{ color: "var(--heading-color)" }}
@@ -76,36 +78,7 @@ const Meet = () => {
         </article>
 
         <article
-          className="flex flex-col items-start gap-4 rounded-2xl border p-4 sm:flex-row sm:items-stretch sm:justify-between lg:col-start-1 lg:row-start-2"
-          style={{
-            background: "var(--card-state-bg)",
-            boxShadow: "0px 0px 0px 1px var(--card-state-border)",
-          }}
-        >
-          <div className="max-w-full sm:max-w-[52%] lg:max-w-[48%]">
-            <h3
-              className="text-[20px] md:text-[22px] lg:text-[24px] font-sans font-medium leading-[1.1] tracking-tighter"
-              style={{ color: "var(--heading-color)" }}
-            >
-              Activity tracking & insights
-            </h3>
-            <p
-              className="mt-2 text-[14px] md:text-[15px] leading-relaxed"
-              style={{ color: "var(--subheading-color)" }}
-            >
-              Visualize when sales activity is strongest with clear insights
-              that help teams focus on the moments that matter most.
-            </p>
-          </div>
-          <div className={`${meetPreviewShell} overflow-hidden`}>
-            <MeetWidgetFrame className="flex min-h-0 flex-1 flex-col overflow-hidden">
-              <MeetDealPipelineStack className="min-h-0 flex-1" />
-            </MeetWidgetFrame>
-          </div>
-        </article>
-
-        <article
-          className="flex h-full min-h-0 flex-col rounded-2xl border p-4 lg:row-span-2 lg:col-start-2 lg:row-start-1"
+          className="order-3 flex h-full min-h-0 flex-col rounded-2xl border p-4 md:order-3 md:col-span-2 xl:col-span-1 xl:row-span-2 xl:col-start-2 xl:row-start-1"
           style={{
             background: "var(--card-state-bg)",
             boxShadow: "0px 0px 0px 1px var(--card-state-border)",
@@ -127,18 +100,47 @@ const Meet = () => {
               next.
             </p>
           </div>
-          <div className="mt-4 w-full shrink-0">
-            <MeetWidgetFrame>
-              <MeetActiveDealsCard />
+          <div className="mt-6 flex min-h-0 w-full min-w-0 flex-1 flex-col justify-end md:mt-8">
+            <div className="w-full min-[1440px]:min-h-[208px]">
+              <MeetWidgetFrame className="flex h-full min-h-0 w-full flex-col overflow-hidden">
+                <MeetActiveDealsCard className="min-h-0 w-full flex-1 justify-between" />
+              </MeetWidgetFrame>
+            </div>
+          </div>
+        </article>
+
+        <article
+          className="order-2 flex flex-col items-start gap-4 rounded-2xl border p-4 md:order-2 xl:flex-row xl:items-stretch xl:justify-between xl:col-span-1 xl:col-start-1 xl:row-start-2"
+          style={{
+            background: "var(--card-state-bg)",
+            boxShadow: "0px 0px 0px 1px var(--card-state-border)",
+          }}
+        >
+          <div className="max-w-full min-w-0 xl:max-w-[48%]">
+            <h3
+              className="text-[20px] md:text-[22px] lg:text-[24px] font-sans font-medium leading-[1.1] tracking-tighter"
+              style={{ color: "var(--heading-color)" }}
+            >
+              Activity tracking & insights
+            </h3>
+            <p
+              className="mt-2 text-[14px] md:text-[15px] leading-relaxed"
+              style={{ color: "var(--subheading-color)" }}
+            >
+              Visualize when sales activity is strongest with clear insights
+              that help teams focus on the moments that matter most.
+            </p>
+          </div>
+          <div className={`${meetPreviewShell} overflow-hidden`}>
+            <MeetWidgetFrame className="flex min-h-0 flex-1 flex-col overflow-hidden">
+              <MeetDealPipelineStack className="min-h-0 w-full flex-1" />
             </MeetWidgetFrame>
           </div>
-          {/* Extra grid height goes below the graph, not between title and chart */}
-          <div className="min-h-0 flex-1" aria-hidden />
         </article>
       </div>
       {/* Stats Section */}
       <div className="mt-4 w-full rounded-2xl md:rounded-3xl px-6 py-8 sm:px-8 sm:py-12 md:px-12 md:py-16 bg-gradient-brand-soft">
-        <div className="flex flex-col md:flex-row  md:justify-center gap-8 md:gap-[33px] lg:grid lg:grid-cols-4 lg:gap-8 xl:gap-12">
+        <div className="flex flex-col md:flex-row  md:justify-center gap-8 md:gap-[33px] xl:grid xl:grid-cols-4 xl:gap-12">
           {[
             {
               stat: "#1",
@@ -161,7 +163,7 @@ const Meet = () => {
               key={index}
               className={`relative  ${
                 index > 0
-                  ? "border-t border-dashed pt-8 md:border-t-0 md:pt-0 lg:border-l lg:pl-8 xl:pl-12"
+                  ? "border-t border-dashed pt-8 md:border-t-0 md:pt-0 xl:border-l xl:pl-12"
                   : ""
               }`}
               style={

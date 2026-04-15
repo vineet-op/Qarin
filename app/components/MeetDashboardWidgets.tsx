@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ReactNode } from "react";
 import { Activity, ChevronDown, Clock, Timer, TrendingUp } from "lucide-react";
 
@@ -23,71 +24,76 @@ export const MEET_PREVIEW_FRAME_HEIGHT_CLASS = "h-[244px]";
 
 /** Stacked segment weights per day (sum normalized per column), bottom → top */
 const ACTIVITY_SEGMENTS: number[][] = [
-  [0.28, 0.22, 0.18, 0.12],
-  [0.2, 0.35, 0.25, 0.2],
-  [0.18, 0.25, 0.2, 0.15],
-  [0.22, 0.32, 0.28, 0.18],
-  [0.15, 0.22, 0.2, 0.32],
-  [0.25, 0.2, 0.18, 0.15],
+  [0.45, 0.55], // Mon: 2 segments (Rectangle 17, 18)
+  [0.33, 0.33], // Tue: 1 segment (Rectangle 17)
+  [0.35, 0.35, 0.3], // Wed: 3 segments (Rectangle 17, 18, 19)
+  [0.48, 0.52], // Thu: 2 segments (Rectangle 17, 18)
+  [0.33, 0.35, 0.32], // Fri: 3 segments (Rectangle 17, 18, 19)
+  [0.38, 0.32, 0.3], // Sat: 3 segments (Rectangle 17, 18, 19)
 ];
 
-/** Unequal total bar height: Tue & Thu tallest, Sat shortest (Mon–Sat) */
-const DAY_BAR_HEIGHT_SCALE = [0.68, 1, 0.76, 1, 0.88, 0.52] as const;
+/** Unequal total bar height matching Framer design */
+const DAY_BAR_HEIGHT_SCALE = [0.7, 0.4, 0.6, 0.7, 1.0, 0.88] as const;
 
 const BAR_COLORS = ["#23458F", "#5D7BFF", "#8CB3F5", "#D6E3FF"] as const;
 
-const BASE_BAR_PX = 78;
+const BASE_BAR_PX = 120;
 
 export function MeetActivityTimeChart({ className }: { className?: string }) {
   return (
     <div
-      className={`flex h-full min-h-0 w-full flex-col overflow-hidden rounded-xl bg-[#F6F7F9] p-2 ring-1 ring-black/5 ${className ?? ""}`}
+      className={`flex h-full min-h-0 w-full flex-col overflow-hidden rounded-xl bg-[#F6F7F9] p-3 ring-1 ring-black/5 ${className ?? ""}`}
     >
-      <div className="mb-2 flex shrink-0 items-center justify-between gap-1.5">
+      <div className="mb-3 flex shrink-0 items-center justify-between gap-1.5 min-[1440px]:mb-2">
         <div className="flex min-w-0 items-center gap-1.5">
-          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[#E4E7EC] bg-white">
+          <span className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full">
             <Clock className="h-3.5 w-3.5 text-[#0B0C2B]" strokeWidth={2} />
           </span>
-          <span className="truncate font-sans text-[12px] font-semibold text-[#0B0C2B]">
+          <span className="truncate font-sans text-[11px] font-medium text-[#0B0C2B]">
             Activity Time
           </span>
         </div>
         <button
           type="button"
-          className="flex shrink-0 items-center gap-1 rounded-lg border border-[#E4E7EC] bg-white px-2.5 py-1.5 font-inter text-[11px] font-medium text-[#0B0C2B] shadow-sm"
+          className="flex shrink-0 items-center gap-0.5 rounded-lg border border-[#E4E7EC] bg-white px-2 py-1 font-sans text-[8px] font-medium text-[#0B0C2B] shadow-sm"
         >
           Last 7 Days
-          <ChevronDown className="h-3.5 w-3.5 text-[#667085]" />
+          <ChevronDown className="h-3 w-3 text-[#667085]" strokeWidth={2} />
         </button>
       </div>
 
       <div className="relative flex min-h-0 flex-1 flex-col pb-1">
-        {/* Tooltip — Tuesday bar */}
-        <div className="pointer-events-none absolute left-[23%] top-0 z-10 -translate-x-1/2">
-          <div className="relative rounded-lg border border-[#E4E7EC] bg-white px-2.5 py-1.5 shadow-sm">
-            <div className="absolute -right-1.5 top-1/2 h-2 w-2 -translate-y-1/2 rotate-45 border-r border-t border-[#E4E7EC] bg-white" />
-            <div className="flex items-center gap-2 pr-1">
+        {/* Tooltip — Friday bar, approached from the left side */}
+        <div className="pointer-events-none absolute left-[38%] top-[18px] z-10 -translate-x-1/2">
+          <div className="relative rounded-md border border-[#E4E7EC] bg-white px-2 py-1.5 shadow-sm">
+            <div className="absolute -right-[3px] top-1/2 h-1.5 w-1.5 -translate-y-1/2 rotate-45 border-r border-t border-[#E4E7EC] bg-white" />
+            <div className="flex items-center gap-1.5">
               <span
                 className="h-2 w-2 shrink-0 rounded-full"
-                style={{ background: "#D6E3FF" }}
+                style={{ background: "#8CB3F5" }}
               />
-              <span className="whitespace-nowrap font-inter text-[11px] font-semibold text-[#0B0C2B]">
-                Meeting 2 hours
-              </span>
+              <div className="flex items-center gap-1">
+                <span className="whitespace-nowrap font-sans text-[7px] font-medium leading-[140%] text-[#0B0C2B]">
+                  Meeting
+                </span>
+                <span className="whitespace-nowrap font-sans text-[7px] font-medium leading-[140%] text-[#0B0C2B]">
+                  2 hours
+                </span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="flex min-h-[88px] flex-1 items-end justify-between gap-0.5 px-0.5 pt-6">
+        <div className="flex min-h-[120px] min-[1440px]:min-h-[72px] flex-1 items-end justify-between gap-2.5 px-1 pt-6 min-[1440px]:pt-3">
           {ACTIVITY_SEGMENTS.map((segments, dayIndex) => {
             const total = segments.reduce((a, b) => a + b, 0) || 1;
             const colH = BASE_BAR_PX * DAY_BAR_HEIGHT_SCALE[dayIndex];
             return (
               <div
                 key={dayIndex}
-                className="flex h-full min-w-0 flex-1 flex-col justify-end px-px"
+                className="flex h-full min-w-0 flex-1 flex-col justify-end"
               >
-                <div className="flex w-full min-h-0 flex-col-reverse overflow-hidden">
+                <div className="flex w-full min-h-0 flex-col-reverse overflow-hidden rounded-sm">
                   {segments.map((h, i) => {
                     const color =
                       BAR_COLORS[Math.min(i, BAR_COLORS.length - 1)];
@@ -109,22 +115,24 @@ export function MeetActivityTimeChart({ className }: { className?: string }) {
           })}
 
           {/* Sunday — off */}
-          <div className="flex h-full min-w-0 flex-1 flex-col justify-end px-px">
-            <div className="mb-0.5 text-center">
-              <span className="font-inter text-[10px] font-medium lowercase text-[#98A2B3]">
+          <div className="flex h-full min-w-0 flex-1 flex-col justify-end">
+            <div className=" text-center">
+              <span className="font-sans text-[7px] font-medium lowercase text-[#A1A1A1]">
                 off
               </span>
             </div>
             <div
-              className="w-full rounded-full border border-[#E4E7EC] bg-[repeating-linear-gradient(135deg,#F2F4F7_0px,#F2F4F7_4px,#FFFFFF_4px,#FFFFFF_8px)]"
+              className="w-full overflow-hidden rounded-sm border border-[#E4E7EC]"
               style={{
                 height: Math.max(BASE_BAR_PX * 0.36, 18),
+                background:
+                  "repeating-linear-gradient(135deg, #F2F4F7 0px, #F2F4F7 4px, #FFFFFF 4px, #FFFFFF 8px)",
               }}
             />
           </div>
         </div>
 
-        <div className="mt-2 flex shrink-0 justify-between gap-0.5 px-0.5 font-inter text-[10px] font-medium text-[#98A2B3]">
+        <div className="mt-2.5 flex shrink-0 justify-between gap-2.5 px-1 font-sans text-[7px] font-medium text-[#A1A1A1]">
           {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d) => (
             <span key={d} className="flex-1 text-center">
               {d}
@@ -145,22 +153,27 @@ const dealRows: {
   name: string;
   days: string;
   initial: string;
+  avatarSrc?: string;
 }[] = [
   {
     amount: "$619,000",
     subtitle: "Maintaining & Upgrade",
     status: "progress",
-    name: "Crishtian Beuhe",
+    name: "Christian Beuhe",
     days: "12 Day",
     initial: "CB",
+    avatarSrc:
+      "https://framerusercontent.com/images/jup5CAFDh8UtdCS5DHAxrwC8tYE.png?width=120&height=120",
   },
   {
     amount: "$251,000",
     subtitle: "Develop CRM Product",
-    status: "progress",
+    status: "done",
     name: "Raymond Baratheon",
-    days: "21 Day",
+    days: "24 Day",
     initial: "RB",
+    avatarSrc:
+      "https://framerusercontent.com/images/WHOyED01BK0vvivKPchOEA23uT4.jpg?width=319&height=479",
   },
   {
     amount: "$184,000",
@@ -189,14 +202,14 @@ function StatusBadge({ status }: { status: DealStatus }) {
 
 export function MeetDealPipelineStack({ className }: { className?: string }) {
   return (
-    <div
-      className={`h-full min-h-0 w-full overflow-hidden ${className ?? ""}`}
-    >
+    <div className={`h-full min-h-0 w-full overflow-hidden ${className ?? ""}`}>
       <div className="flex w-full flex-col gap-2">
-        {dealRows.map((row) => (
+        {dealRows.map((row, index) => (
           <div
             key={row.name + row.amount}
-            className="rounded-xl bg-[#F5F6F7] px-3 py-2.5 shadow-[0_1px_0_0_rgba(15,23,42,0.04)] ring-1 ring-black/5"
+            className={`rounded-xl bg-[#F5F6F7] px-3 py-2.5 shadow-[0_1px_0_0_rgba(15,23,42,0.04)] ring-1 ring-black/5 ${
+              index === 2 ? " md:hidden xl:block" : ""
+            }`}
           >
             <div className="flex items-start justify-between gap-2">
               <p className="font-sans text-[11px] font-semibold leading-tight tracking-tight text-[#0B0C2B]">
@@ -209,12 +222,22 @@ export function MeetDealPipelineStack({ className }: { className?: string }) {
             </p>
             <div className="mt-2.5 flex items-center justify-between gap-2">
               <div className="flex min-w-0 items-center gap-1.5">
-                <div
-                  className="flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full bg-linear-to-br from-[#93A8FF] to-[#5D7BFF] font-sans text-[7px] font-bold leading-none text-white"
-                  aria-hidden
-                >
-                  {row.initial}
-                </div>
+                {row.avatarSrc ? (
+                  <Image
+                    src={row.avatarSrc}
+                    alt={row.name}
+                    width={12}
+                    height={12}
+                    className="h-3 w-3 shrink-0 rounded-full object-cover"
+                  />
+                ) : (
+                  <div
+                    className="flex h-3 w-3 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-[#93A8FF] to-[#5D7BFF] font-sans text-[5px] font-bold leading-none text-white"
+                    aria-hidden
+                  >
+                    {row.initial}
+                  </div>
+                )}
                 <span className="truncate font-sans text-[9px] font-semibold leading-tight text-[#0B0C2B]">
                   {row.name}
                 </span>
@@ -235,11 +258,11 @@ export function MeetDealPipelineStack({ className }: { className?: string }) {
 
 /** Sparkline paths in viewBox 0 0 320 120 */
 const ACTIVE_DEALS_AREA_PATH =
-  "M0,88 C40,82 55,72 80,58 C105,42 120,48 145,38 C175,25 195,35 220,22 C245,10 265,18 290,12 L320,8 L320,120 L0,120 Z";
+  "M0,120 L0,30 L40,20 L80,60 L120,10 L160,80 L200,30 L240,100 L280,50 L320,120 Z";
 const ACTIVE_DEALS_LINE_PATH =
-  "M0,88 C40,82 55,72 80,58 C105,42 120,48 145,38 C175,25 195,35 220,22 C245,10 265,18 290,12";
+  "M0,120 L0,30 L40,20 L80,60 L120,10 L160,80 L200,30 L240,100 L280,50 L320,120";
 const ACTIVE_DEALS_DASH_PATH =
-  "M0,95 C50,90 90,100 140,85 C190,70 230,88 320,75";
+  "M0,120 L60,60 L120,110 L180,40 L240,95 L300,30 L320,120";
 
 export function MeetActiveDealsCard({ className }: { className?: string }) {
   return (
