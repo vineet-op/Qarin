@@ -1,5 +1,16 @@
-import React from "react";
 import { Check } from "lucide-react";
+import {
+  MEET_PREVIEW_FRAME_HEIGHT_CLASS,
+  MeetActiveDealsCard,
+  MeetActivityTimeChart,
+  MeetDealPipelineStack,
+  MeetWidgetFrame,
+} from "@/app/components/MeetDashboardWidgets";
+
+const meetPreviewCol = "w-full min-w-0 shrink-0 sm:w-[260px] lg:w-[280px]";
+
+/** Same outer size for Activity chart & deal stack white frames */
+const meetPreviewShell = `${meetPreviewCol} ${MEET_PREVIEW_FRAME_HEIGHT_CLASS} flex flex-col`;
 
 const Meet = () => {
   return (
@@ -34,80 +45,95 @@ const Meet = () => {
           opportunities, and move faster with confidence.
         </p>
       </div>
-      <div className="mt-8 md:mt-10 lg:mt-12 grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <div className="grid grid-rows-2 gap-4">
-          <article
-            className="rounded-2xl border p-5 md:p-6 flex flex-col items-start gap-4 md:gap-6 sm:flex-row sm:items-center sm:justify-between"
-            style={{
-              background: "var(--card-state-bg)",
-              boxShadow: "0px 0px 0px 1px var(--card-state-border)",
-            }}
-          >
-            <div className="max-w-full sm:max-w-[58%] lg:max-w-[55%]">
-              <h3
-                className="text-[20px] md:text-[22px] lg:text-[24px] font-sans font-medium leading-[1.1] tracking-tighter"
-                style={{ color: "var(--heading-color)" }}
-              >
-                Time tracking breakdown
-              </h3>
-              <p
-                className="mt-2 md:mt-3 text-[14px] md:text-[15px] leading-relaxed"
-                style={{ color: "var(--subheading-color)" }}
-              >
-                Track how time is spent across meetings, calls, and tasks to
-                understand productivity and improve sales performance.
-              </p>
-            </div>
-            <div className="h-[100px] md:h-[120px] w-full shrink-0 rounded-xl bg-white/80 sm:w-[180px] lg:w-[200px] xl:w-[220px]" />
-          </article>
-
-          <article
-            className="rounded-2xl border p-5 md:p-6 flex flex-col items-start gap-4 md:gap-6 sm:flex-row sm:items-center sm:justify-between"
-            style={{
-              background: "var(--card-state-bg)",
-              boxShadow: "0px 0px 0px 1px var(--card-state-border)",
-            }}
-          >
-            <div className="max-w-full sm:max-w-[58%] lg:max-w-[55%]">
-              <h3
-                className="text-[20px] md:text-[22px] lg:text-[24px] font-sans font-medium leading-[1.1] tracking-tighter"
-                style={{ color: "var(--heading-color)" }}
-              >
-                Activity tracking & insights
-              </h3>
-              <p
-                className="mt-2 md:mt-3 text-[14px] md:text-[15px] leading-relaxed"
-                style={{ color: "var(--subheading-color)" }}
-              >
-                Visualize when sales activity is strongest with clear insights
-                that help teams focus on the moments that matter most.
-              </p>
-            </div>
-            <div className="h-[100px] md:h-[120px] w-full shrink-0 rounded-xl bg-white/80 sm:w-[180px] lg:w-[200px] xl:w-[220px]" />
-          </article>
-        </div>
-
+      <div className="mt-8 grid grid-cols-1 gap-2 md:mt-10 lg:mt-12 lg:grid-cols-2 lg:grid-rows-2 lg:items-stretch lg:gap-2">
         <article
-          className="rounded-2xl border p-5 md:p-6"
+          className="flex flex-col items-start gap-4 rounded-2xl border p-4 sm:flex-row sm:items-start sm:justify-between lg:col-start-1 lg:row-start-1"
           style={{
             background: "var(--card-state-bg)",
             boxShadow: "0px 0px 0px 1px var(--card-state-border)",
           }}
         >
-          <h3
-            className="text-[20px] md:text-[22px] lg:text-[24px] font-sans font-medium leading-[1.1] tracking-tighter"
-            style={{ color: "var(--heading-color)" }}
-          >
-            Real-time sales statistics
-          </h3>
-          <p
-            className="mt-2 md:mt-3 text-[14px] md:text-[15px] leading-relaxed"
-            style={{ color: "var(--subheading-color)" }}
-          >
-            Monitor active deals and revenue trends in real time, so you always
-            know where your pipeline stands and what needs attention next.
-          </p>
-          <div className="mt-4 md:mt-6 h-[280px] md:h-[320px] rounded-xl bg-white/85" />
+          <div className="max-w-full sm:max-w-[52%] lg:max-w-[48%]">
+            <h3
+              className="text-[20px] md:text-[22px] lg:text-[24px] font-sans font-medium leading-[1.1] tracking-tighter"
+              style={{ color: "var(--heading-color)" }}
+            >
+              Time tracking breakdown
+            </h3>
+            <p
+              className="mt-2 text-[14px] md:text-[15px] leading-relaxed"
+              style={{ color: "var(--subheading-color)" }}
+            >
+              Track how time is spent across meetings, calls, and tasks to
+              understand productivity and improve sales performance.
+            </p>
+          </div>
+          <div className={`${meetPreviewShell} overflow-hidden`}>
+            <MeetWidgetFrame className="flex min-h-0 flex-1 flex-col overflow-hidden">
+              <MeetActivityTimeChart className="min-h-0 w-full flex-1" />
+            </MeetWidgetFrame>
+          </div>
+        </article>
+
+        <article
+          className="flex flex-col items-start gap-4 rounded-2xl border p-4 sm:flex-row sm:items-stretch sm:justify-between lg:col-start-1 lg:row-start-2"
+          style={{
+            background: "var(--card-state-bg)",
+            boxShadow: "0px 0px 0px 1px var(--card-state-border)",
+          }}
+        >
+          <div className="max-w-full sm:max-w-[52%] lg:max-w-[48%]">
+            <h3
+              className="text-[20px] md:text-[22px] lg:text-[24px] font-sans font-medium leading-[1.1] tracking-tighter"
+              style={{ color: "var(--heading-color)" }}
+            >
+              Activity tracking & insights
+            </h3>
+            <p
+              className="mt-2 text-[14px] md:text-[15px] leading-relaxed"
+              style={{ color: "var(--subheading-color)" }}
+            >
+              Visualize when sales activity is strongest with clear insights
+              that help teams focus on the moments that matter most.
+            </p>
+          </div>
+          <div className={`${meetPreviewShell} overflow-hidden`}>
+            <MeetWidgetFrame className="flex min-h-0 flex-1 flex-col overflow-hidden">
+              <MeetDealPipelineStack className="min-h-0 flex-1" />
+            </MeetWidgetFrame>
+          </div>
+        </article>
+
+        <article
+          className="flex h-full min-h-0 flex-col rounded-2xl border p-4 lg:row-span-2 lg:col-start-2 lg:row-start-1"
+          style={{
+            background: "var(--card-state-bg)",
+            boxShadow: "0px 0px 0px 1px var(--card-state-border)",
+          }}
+        >
+          <div className="shrink-0">
+            <h3
+              className="text-[20px] md:text-[22px] lg:text-[24px] font-sans font-medium leading-[1.1] tracking-tighter"
+              style={{ color: "var(--heading-color)" }}
+            >
+              Real-time sales statistics
+            </h3>
+            <p
+              className="mt-2 text-[14px] md:text-[15px] leading-relaxed"
+              style={{ color: "var(--subheading-color)" }}
+            >
+              Monitor active deals and revenue trends in real time, so you
+              always know where your pipeline stands and what needs attention
+              next.
+            </p>
+          </div>
+          <div className="mt-4 w-full shrink-0">
+            <MeetWidgetFrame>
+              <MeetActiveDealsCard />
+            </MeetWidgetFrame>
+          </div>
+          {/* Extra grid height goes below the graph, not between title and chart */}
+          <div className="min-h-0 flex-1" aria-hidden />
         </article>
       </div>
       {/* Stats Section */}

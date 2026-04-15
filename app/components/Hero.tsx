@@ -2,10 +2,56 @@
 
 import RollButton from "@/components/ui/AnimatedButton";
 import { ArrowRight } from "lucide-react";
-import { motion, useScroll, useSpring, useTransform } from "motion/react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "motion/react";
+
+const heroIntroContainer = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.05,
+    },
+  },
+} as const;
+
+const heroIntroItem = {
+  hidden: (reduceMotion: boolean) =>
+    reduceMotion
+      ? { opacity: 0 }
+      : {
+          opacity: 0,
+          filter: "blur(12px)",
+          y: 16,
+        },
+  visible: (reduceMotion: boolean) =>
+    reduceMotion
+      ? {
+          opacity: 1,
+          transition: { duration: 0.2 },
+        }
+      : {
+          opacity: 1,
+          filter: "blur(0px)",
+          y: 0,
+          transition: {
+            duration: 0.55,
+            ease: [0.22, 1, 0.36, 1] as const,
+          },
+        },
+};
 
 const DASHBOARD_IMG =
   "https://framerusercontent.com/images/rxbjs0K0wdBGS4vAounN8YZpJuM.png?scale-down-to=2048&width=2160&height=1536";
+
+/** Decorative strips — tune Y per breakpoint via classes below (not JS). */
+const HERO_STRIP_BG =
+  "https://framerusercontent.com/images/N5RFLbxO4vAoymPSuRfOaxSZJ5o.png?scale-down-to=2048&width=2752&height=2642";
 
 const brandLogos = [
   "https://framerusercontent.com/images/HUjVylf8pqC22c2YOTgt1e7wc4.svg?width=143&height=33",
@@ -18,6 +64,7 @@ const brandLogos = [
 
 const Hero = () => {
   const marqueeLogos = [...brandLogos, ...brandLogos];
+  const reduceMotion = useReducedMotion() === true;
 
   const { scrollY } = useScroll();
 
@@ -38,88 +85,102 @@ const Hero = () => {
 
   return (
     <section className="font-inter mx-auto mt-[60px] flex w-full flex-col items-center justify-center px-4 md:mt-[70px] md:px-6 lg:mt-[76px] lg:px-20">
-      {/* Version Badge */}
-      <div className="mb-4 flex items-center gap-1.5 rounded-sm border border-neutral-200 bg-white px-3 py-1.5 md:mb-6 lg:mb-[27px]">
-        <span
-          className="text-xs font-medium"
-          style={{ color: "var(--heading-color)" }}
+      <motion.div
+        className="flex w-full flex-col items-center"
+        variants={heroIntroContainer}
+        initial="hidden"
+        animate="visible"
+      >
+        {/* Version Badge */}
+        <motion.div
+          className="mb-4 flex items-center gap-1.5 rounded-sm border border-neutral-200 bg-white px-3 py-1.5 md:mb-6 lg:mb-[27px]"
+          variants={heroIntroItem}
+          custom={reduceMotion}
+          style={{ willChange: "opacity, filter, transform" }}
         >
-          Version 2.0 out now
-        </span>
-        <ArrowRight
-          className="h-3 w-3"
-          style={{ color: "var(--heading-color)" }}
-        />
-      </div>
+          <span
+            className="text-xs font-medium"
+            style={{ color: "var(--heading-color)" }}
+          >
+            Version 2.0 out now
+          </span>
+          <ArrowRight
+            className="h-3 w-3"
+            style={{ color: "var(--heading-color)" }}
+          />
+        </motion.div>
 
-      {/* Main Heading */}
-      <h1
-        className="mb-4 max-w-[900px] px-2 text-center font-sans text-[40px] font-medium leading-[1.1] tracking-tighter md:mb-5 md:text-[48px] lg:mb-6 lg:text-[64px]"
-        style={{ color: "var(--heading-color)" }}
-      >
-        Manage Your Sales Process <br className="hidden md:block" /> with
-        Clarity and Control
-      </h1>
+        {/* Main Heading */}
+        <motion.h1
+          className="mb-4 max-w-[900px] px-2 text-center font-sans text-[40px] font-medium leading-[1.1] tracking-tighter md:mb-5 md:text-[48px] lg:mb-6 lg:text-[64px]"
+          style={{
+            color: "var(--heading-color)",
+            willChange: "opacity, filter, transform",
+          }}
+          variants={heroIntroItem}
+          custom={reduceMotion}
+        >
+          Manage Your Sales Process <br className="hidden md:block" /> with
+          Clarity and Control
+        </motion.h1>
 
-      {/* Subheading */}
-      <p
-        className="mb-6 max-w-[340px] px-2 text-center text-[14px] leading-relaxed md:mb-7 md:max-w-[500px] md:text-[15px] lg:mb-8 lg:max-w-[600px] lg:text-[16px]"
-        style={{ color: "var(--subheading-color)" }}
-      >
-        Deliver exceptional customer support at scale with AI-powered tools that
-        delight customers and empower your team.
-      </p>
+        {/* Subheading */}
+        <motion.p
+          className="mb-6 max-w-[340px] px-2 text-center text-[14px] leading-relaxed md:mb-7 md:max-w-[500px] md:text-[15px] lg:mb-8 lg:max-w-[600px] lg:text-[16px]"
+          style={{
+            color: "var(--subheading-color)",
+            willChange: "opacity, filter, transform",
+          }}
+          variants={heroIntroItem}
+          custom={reduceMotion}
+        >
+          Deliver exceptional customer support at scale with AI-powered tools
+          that delight customers and empower your team.
+        </motion.p>
 
-      {/* CTA Buttons */}
-      <div className="mb-8 flex w-full flex-row items-center justify-center gap-3 px-4 md:mb-12 md:gap-4 md:px-0 lg:mb-16">
-        <RollButton
-          label="Book a Demo"
-          background="var(--card-linear-bg)"
-          color="#ffffff"
-          padding="12px 22px"
-          borderRadius="12px"
-          border="none"
-          labelClassName="text-[14px] md:text-[15px] font-medium"
-          className="w-auto rounded-xl border-0"
-        />
-        <RollButton
-          label="Contact Sales"
-          background="#ffffff"
-          color="var(--heading-color)"
-          padding="12px 22px"
-          borderRadius="12px"
-          border="1px solid #e5e5e5"
-          labelClassName="text-[14px] md:text-[15px] font-medium"
-          className="group w-auto rounded-xl bg-white transition-all"
-          suffix={
-            <ArrowRight
-              className="h-4 w-4 -rotate-45 transition-transform duration-100 group-hover:rotate-0"
-              style={{ color: "var(--heading-color)" }}
-            />
-          }
-        />
-      </div>
+        {/* CTA Buttons */}
+        <motion.div
+          className="mb-8 flex w-full flex-row items-center justify-center gap-3 px-4 md:mb-12 md:gap-4 md:px-0 lg:mb-16"
+          variants={heroIntroItem}
+          custom={reduceMotion}
+          style={{ willChange: "opacity, filter, transform" }}
+        >
+          <RollButton
+            label="Book a Demo"
+            background="var(--card-linear-bg)"
+            color="#ffffff"
+            padding="18px 22px"
+            borderRadius="12px"
+            border="none"
+            labelClassName="text-[14px] md:text-[15px] font-medium"
+            className="w-auto rounded-xl border-0"
+          />
+          <RollButton
+            label="Contact Sales"
+            background="#ffffff"
+            color="var(--heading-color)"
+            padding="18px 22px"
+            borderRadius="12px"
+            border="1px solid #e5e5e5"
+            labelClassName="text-[14px] md:text-[15px] font-medium"
+            className="group w-auto rounded-xl bg-white transition-all"
+            suffix={
+              <ArrowRight
+                className="h-4 w-4 -rotate-45 transition-transform duration-100 group-hover:rotate-0"
+                style={{ color: "var(--heading-color)" }}
+              />
+            }
+          />
+        </motion.div>
+      </motion.div>
 
       {/* Hero Image Section */}
       <div className="relative h-full w-full">
         <div
-          className="absolute inset-0 w-full overflow-hidden rounded-2xl md:rounded-3xl"
+          className="absolute inset-0 w-full overflow-hidden rounded-2xl bg-cover bg-repeat md:rounded-3xl bg-position-[center_top_-60px] md:bg-position-[center_top_-140px] min-[1400px]:bg-position-[center_top_-520px]"
           style={{
-            backgroundImage:
-              "url(https://framerusercontent.com/images/N5RFLbxO4vAoymPSuRfOaxSZJ5o.png?scale-down-to=2048&width=2752&height=2642)",
+            backgroundImage: `url("${HERO_STRIP_BG}")`,
             backgroundSize: "cover",
-            backgroundPosition:
-              typeof window !== "undefined"
-                ? window.innerWidth >= 1440
-                  ? // Large screens
-                    "center top -500px"
-                  : window.innerWidth >= 768
-                    ? // Medium screens
-                      "center top -140px"
-                    : // Mobile screens (add more mobile-specific adjustments here)
-                      "center top -50px"
-                : // SSR fallback
-                  "center top -140px",
             backgroundRepeat: "repeat",
           }}
         />
@@ -129,12 +190,12 @@ const Hero = () => {
           <img
             src={DASHBOARD_IMG}
             alt="Qarin Dashboard"
-            className="-mt-6 h-auto w-full max-w-[1150px] rounded-xl object-contain p-3 shadow-2xl md:hidden"
+            className="-mt-1 h-auto w-full max-w-[1150px] rounded-xl object-contain p-3 shadow-2xl md:hidden"
           />
 
           {/* md+: scroll-driven 3D (includes 1024px, 1440px, and up) */}
           <motion.div
-            className="mx-auto hidden w-full max-w-[min(100%,820px)] md:block lg:max-w-[1150px] min-[1440px]:w-[971px]! min-[1440px]:max-w-[971px]!"
+            className="mx-auto hidden w-full max-w-[min(100%,820px)] md:block lg:max-w-[1150px] min-[1440px]:w-[971px]! min-[1440px]:max-w-[971px]! rounded-2xl  shadow-2xl"
             style={{
               transformPerspective: 1200,
               transformStyle: "preserve-3d",
@@ -148,7 +209,8 @@ const Hero = () => {
             <img
               src={DASHBOARD_IMG}
               alt="Qarin Dashboard"
-              className="-mt-4 h-auto w-full max-h-[min(500px,58vh)] rounded-xl object-contain p-3 md:rounded-2xl md:p-3 max-lg:shadow-2xl lg:-mt-6 lg:max-h-[min(820px,78vh)] lg:rounded-2xl lg:p-6 lg:shadow-[0_4px_12px_-2px_rgba(15,23,42,0.06),0_12px_28px_-14px_rgba(15,23,42,0.08)] xl:shadow-[0_3px_10px_-2px_rgba(15,23,42,0.05),0_10px_22px_-12px_rgba(15,23,42,0.07)] min-[1440px]:box-border min-[1440px]:h-[658px]! min-[1440px]:w-[971px]! min-[1440px]:max-h-[658px]! min-[1440px]:shrink-0 min-[1440px]:p-4"
+              className="rounded-2xl p-3 shadow-2xl"
+              // className="-mt-4 h-auto w-full max-h-[min(500px,58vh)] rounded-xl object-contain p-3 md:rounded-2xl md:p-3 max-lg:shadow-2xl lg:-mt-6 lg:max-h-[min(820px,78vh)] lg:rounded-2xl lg:p-6 lg:shadow-[0_4px_12px_-2px_rgba(15,23,42,0.06),0_12px_28px_-14px_rgba(15,23,42,0.08)] xl:shadow-[0_3px_10px_-2px_rgba(15,23,42,0.05),0_10px_22px_-12px_rgba(15,23,42,0.07)] min-[1440px]:box-border min-[1440px]:h-[658px]! min-[1440px]:w-[971px]! min-[1440px]:max-h-[658px]! min-[1440px]:shrink-0 min-[1440px]:p-4"
             />
           </motion.div>
         </div>
