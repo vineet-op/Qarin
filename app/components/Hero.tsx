@@ -68,7 +68,7 @@ const Hero = () => {
 
   const { scrollY } = useScroll();
 
-  // Scroll-driven 3D — md+ (tablet through wide desktop, e.g. 1440px). Mobile uses a static image below.
+  // Bottom edge fixed, top swings: positive rotateX → 0 as user scrolls (hinge at bottom).
   const rawRotateX = useTransform(scrollY, [0, 720], [14, 0]);
   const rawTranslateY = useTransform(scrollY, [0, 720], [52, 0]);
   const rawScale = useTransform(scrollY, [0, 720], [0.993, 1]);
@@ -79,9 +79,12 @@ const Hero = () => {
     mass: 0.9,
   } as const;
 
-  const rotateX = useSpring(rawRotateX, springOpts);
+  const rotateXSpring = useSpring(rawRotateX, springOpts);
   const translateY = useSpring(rawTranslateY, springOpts);
   const scale = useSpring(rawScale, springOpts);
+
+  /** Flatten 3D tilt when user prefers reduced motion */
+  const rotateX = useTransform(rotateXSpring, (v) => (reduceMotion ? 0 : v));
 
   return (
     <section className="font-inter mx-auto mt-[60px] flex w-full flex-col items-center justify-center px-4 md:mt-[70px] md:px-6 lg:mt-[76px] lg:px-20">
@@ -140,7 +143,7 @@ const Hero = () => {
 
         {/* CTA Buttons */}
         <motion.div
-          className="mb-8 flex w-full flex-row items-center justify-center gap-3 px-4 md:mb-12 md:gap-4 md:px-0 lg:mb-16"
+          className="mb-4 flex w-full flex-row items-center justify-center gap-3 px-4 md:mb-5 md:gap-4 md:px-0 lg:mb-6"
           variants={heroIntroItem}
           custom={reduceMotion}
           style={{ willChange: "opacity, filter, transform" }}
@@ -174,8 +177,8 @@ const Hero = () => {
         </motion.div>
       </motion.div>
 
-      {/* Hero Image Section */}
-      <div className="relative h-full w-full">
+      {/* Hero Image Section — pulled up toward CTAs */}
+      <div className="relative -mt-2 h-full w-full md:-mt-4 lg:-mt-6">
         <div
           className="absolute inset-0 w-full overflow-hidden rounded-2xl bg-cover bg-repeat md:rounded-3xl bg-position-[center_top_-60px] md:bg-position-[center_top_-140px] min-[1400px]:bg-position-[center_top_-520px]"
           style={{
@@ -185,7 +188,7 @@ const Hero = () => {
           }}
         />
 
-        <div className="relative flex w-full items-start justify-center rounded-2xl px-4 py-6 md:px-4 md:py-6 lg:px-6 lg:py-6">
+        <div className="relative flex w-full items-start justify-center rounded-2xl px-4 pt-2 pb-6 md:px-4 md:pt-3 md:pb-6 lg:px-6 lg:pt-4 lg:pb-6">
           {/* Mobile: static */}
           <img
             src={DASHBOARD_IMG}
@@ -193,26 +196,39 @@ const Hero = () => {
             className="-mt-1 h-auto w-full max-w-[1150px] rounded-xl object-contain p-3 shadow-2xl md:hidden"
           />
 
-          {/* md+: scroll-driven 3D (includes 1024px, 1440px, and up) */}
-          <motion.div
-            className="mx-auto hidden w-full max-w-[min(100%,820px)] md:block lg:max-w-[1150px] min-[1440px]:w-[971px]! min-[1440px]:max-w-[971px]! rounded-2xl  shadow-2xl"
+          {/* md+: perspective + preserve-3d; rotateX on inner with origin at bottom so bottom stays put, top moves in depth */}
+          <div
+            className="mx-auto hidden w-full max-w-[min(100%,820px)] md:block lg:max-w-[1150px] min-[1440px]:w-[971px] min-[1440px]:max-w-[971px]"
             style={{
-              transformPerspective: 1200,
-              transformStyle: "preserve-3d",
-              transformOrigin: "center top",
-              rotateX,
-              y: translateY,
-              scale,
-              willChange: "transform",
+              perspective: "1200px",
+              perspectiveOrigin: "50% 100%",
             }}
           >
-            <img
-              src={DASHBOARD_IMG}
-              alt="Qarin Dashboard"
-              className="rounded-2xl p-3 shadow-2xl"
-              // className="-mt-4 h-auto w-full max-h-[min(500px,58vh)] rounded-xl object-contain p-3 md:rounded-2xl md:p-3 max-lg:shadow-2xl lg:-mt-6 lg:max-h-[min(820px,78vh)] lg:rounded-2xl lg:p-6 lg:shadow-[0_4px_12px_-2px_rgba(15,23,42,0.06),0_12px_28px_-14px_rgba(15,23,42,0.08)] xl:shadow-[0_3px_10px_-2px_rgba(15,23,42,0.05),0_10px_22px_-12px_rgba(15,23,42,0.07)] min-[1440px]:box-border min-[1440px]:h-[658px]! min-[1440px]:w-[971px]! min-[1440px]:max-h-[658px]! min-[1440px]:shrink-0 min-[1440px]:p-4"
-            />
-          </motion.div>
+            <motion.div
+              className="will-change-transform"
+              style={{
+                y: translateY,
+                scale,
+                transformStyle: "preserve-3d",
+              }}
+            >
+              <motion.div
+                className="will-change-transform origin-[50%_100%]"
+                style={{
+                  rotateX,
+                  z: 0,
+                  transformStyle: "preserve-3d",
+                  backfaceVisibility: "hidden",
+                }}
+              >
+                <img
+                  src={DASHBOARD_IMG}
+                  alt="Qarin Dashboard"
+                  className="rounded-2xl p-3 shadow-2xl"
+                />
+              </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
 
