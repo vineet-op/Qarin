@@ -143,7 +143,7 @@ const Hero = () => {
 
         {/* CTA Buttons */}
         <motion.div
-          className="mb-4 flex w-full flex-row items-center justify-center gap-3 px-4 md:mb-5 md:gap-4 md:px-0 lg:mb-6"
+          className="mb-4 flex w-full flex-row items-center justify-center gap-3 px-4 md:mb-5 md:gap-4 md:px-0 lg:pb-4"
           variants={heroIntroItem}
           custom={reduceMotion}
           style={{ willChange: "opacity, filter, transform" }}
@@ -198,7 +198,7 @@ const Hero = () => {
 
           {/* md+: perspective + preserve-3d; rotateX on inner with origin at bottom so bottom stays put, top moves in depth */}
           <div
-            className="mx-auto hidden w-full max-w-[min(100%,820px)] md:block lg:max-w-[1150px] min-[1440px]:w-[971px] min-[1440px]:max-w-[971px] lg:-mt-14"
+            className="mx-auto hidden w-full max-w-[min(100%,820px)] md:block lg:max-w-[1150px] min-[1440px]:w-[971px] min-[1440px]:max-w-[971px] lg:-mt-8"
             style={{
               perspective: "1200px",
               perspectiveOrigin: "50% 100%",
