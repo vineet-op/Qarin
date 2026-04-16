@@ -198,7 +198,7 @@ const Hero = () => {
 
           {/* md+: perspective + preserve-3d; rotateX on inner with origin at bottom so bottom stays put, top moves in depth */}
           <div
-            className="mx-auto hidden w-full max-w-[min(100%,820px)] md:block lg:max-w-[1150px] min-[1440px]:w-[971px] min-[1440px]:max-w-[971px]"
+            className="mx-auto hidden w-full max-w-[min(100%,820px)] md:block lg:max-w-[1150px] min-[1440px]:w-[971px] min-[1440px]:max-w-[971px] lg:-mt-14"
             style={{
               perspective: "1200px",
               perspectiveOrigin: "50% 100%",
